@@ -1,1352 +1,252 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AP Design Studio Pte. Ltd. | Interior Design Portfolio</title>
-  <style>
-    :root {
-      --bg-primary: #0a0a0c;
-      --bg-surface: #141418;
-      --bg-card: #1c1c22;
-      --border-color: rgba(255, 255, 255, 0.08);
-      --text-main: #f3f3f7;
-      --text-muted: #8e8e9d;
-      --accent-color: #d4af37;
-      --whatsapp-color: #25d366;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
-      background-color: var(--bg-primary);
-      color: var(--text-main);
-      font-family: var(--font-sans);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    header {
-      padding: 2.5rem 0 2rem;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    
-    .brand-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      color: var(--text-main);
-    }
-
-    .brand-title span {
-      color: var(--accent-color);
-    }
-
-    .header-tagline {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      font-style: italic;
-      letter-spacing: 0.02em;
-    }
-
-    .header-whatsapp {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(37, 211, 102, 0.15);
-      color: var(--whatsapp-color);
-      border: 1px solid rgba(37, 211, 102, 0.3);
-      padding: 0.53rem 1.1rem;
-      border-radius: 9999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: var(--transition-fast);
-    }
-
-    .header-whatsapp:hover {
-      background: var(--whatsapp-color);
-      color: #000;
-    }
-
-    .filter-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-top: 0.5rem;
-    }
-
-    .filter-group {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    
-    .filter-btn {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      color: var(--text-muted);
-      padding: 0.5rem 1.25rem;
-      border-radius: 9999px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: var(--transition-fast);
-    }
-    
-    .filter-btn:hover {
-      color: var(--text-main);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    .filter-btn.active {
-      background: var(--accent-color);
-      color: #000;
-      border-color: var(--accent-color);
-      font-weight: 600;
-    }
-
-    .calc-trigger-btn-inline {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(20, 20, 24, 1) 100%);
-      border: 1px solid var(--accent-color);
-      color: var(--accent-color);
-      padding: 0.5rem 1.25rem;
-      border-radius: 9999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: var(--transition-fast);
-      white-space: nowrap;
-    }
-
-    .calc-trigger-btn-inline:hover, .calc-trigger-btn-inline.active {
-      background: var(--accent-color);
-      color: #000;
-      transform: translateY(-1px);
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .section-title::after {
-      content: "";
-      flex-grow: 1;
-      height: 1px;
-      background: var(--border-color);
-    }
-
-    .calculator-section {
-      display: none;
-      background: var(--bg-surface);
-      border: 1px solid var(--accent-color);
-      border-radius: 16px;
-      padding: 2rem;
-      margin-bottom: 3rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .calculator-section.active {
-      display: block;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .calc-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-
-    @media (max-width: 900px) {
-      .calc-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .calc-group {
-      margin-bottom: 1.25rem;
-    }
-
-    .calc-label {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text-main);
-      margin-bottom: 0.6rem;
-      display: block;
-    }
-
-    .calc-options {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 0.6rem;
-    }
-
-    .calc-btn {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--text-muted);
-      padding: 0.65rem 0.5rem;
-      border-radius: 8px;
-      font-size: 0.825rem;
-      font-weight: 500;
-      cursor: pointer;
-      text-align: center;
-      transition: var(--transition-fast);
-    }
-
-    .calc-btn:hover {
-      border-color: var(--accent-color);
-      color: var(--text-main);
-    }
-
-    .calc-btn.selected {
-      background: rgba(212, 175, 55, 0.15);
-      border-color: var(--accent-color);
-      color: var(--accent-color);
-      font-weight: 600;
-    }
-
-    .calc-checkboxes {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-    }
-
-    .calc-check-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 0.65rem 0.75rem;
-      font-size: 0.825rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: var(--transition-fast);
-    }
-
-    .calc-check-item input {
-      accent-color: var(--accent-color);
-      cursor: pointer;
-    }
-
-    .calc-check-item.selected {
-      border-color: var(--accent-color);
-      color: var(--text-main);
-    }
-
-    .calc-summary-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.75rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .estimate-price-box {
-      background: rgba(10, 10, 12, 0.6);
-      border: 1px dashed var(--accent-color);
-      border-radius: 8px;
-      padding: 1.25rem;
-      text-align: center;
-      margin: 1.25rem 0;
-    }
-
-    .estimate-label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.4rem;
-    }
-
-    .estimate-value {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--accent-color);
-    }
-
-    .calc-cta-btn {
-      background: var(--whatsapp-color);
-      color: #000;
-      border: none;
-      border-radius: 9999px;
-      padding: 0.85rem 1.25rem;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      text-decoration: none;
-      transition: var(--transition-fast);
-    }
-
-    .calc-cta-btn:hover {
-      filter: brightness(1.1);
-      transform: translateY(-2px);
-    }
-
-    .designer-section {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 2.5rem;
-      margin-bottom: 4rem;
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 2.5rem;
-      align-items: center;
-    }
-
-    @media (max-width: 768px) {
-      .designer-section {
-        grid-template-columns: 1fr;
-        padding: 1.75rem;
-      }
-    }
-
-    .designer-avatar {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      border-radius: 12px;
-      overflow: hidden;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-    }
-
-    .designer-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-    }
-
-    .designer-info h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--text-main);
-      margin-bottom: 0.2rem;
-    }
-
-    .designer-info .designer-role {
-      font-size: 0.875rem;
-      color: var(--accent-color);
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-
-    .designer-info p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 1rem;
-    }
-
-    .designer-highlights {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin-top: 1.25rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid var(--border-color);
-    }
-
-    .highlight-item {
-      font-size: 0.85rem;
-      color: var(--text-main);
-    }
-
-    .highlight-item strong {
-      color: var(--accent-color);
-      display: block;
-      font-size: 1.1rem;
-    }
-
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 2rem;
-      margin-bottom: 4rem;
-    }
-
-    .project-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: var(--transition-fast);
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-    }
-    
-    .project-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(212, 175, 55, 0.4);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .card-media {
-      position: relative;
-      width: 100%;
-      height: 260px;
-      background-color: var(--bg-card);
-      overflow: hidden;
-    }
-    
-    .card-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    
-    .project-card:hover .card-media img {
-      transform: scale(1.03);
-    }
-
-    .badge {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      background: rgba(10, 10, 12, 0.8);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      font-size: 0.75rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .gallery-count {
-      position: absolute;
-      bottom: 1rem;
-      right: 1rem;
-      background: rgba(10, 10, 12, 0.8);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      font-size: 0.75rem;
-      padding: 0.25rem 0.6rem;
-      border-radius: 4px;
-    }
-
-    .card-content {
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-    
-    .card-content h3 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-      color: var(--text-main);
-    }
-    
-    .card-content .subtitle {
-      font-size: 0.875rem;
-      color: var(--accent-color);
-      margin-bottom: 0.75rem;
-      font-weight: 500;
-    }
-    
-    .card-content p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
-
-    .specs-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid var(--border-color);
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .specs-list span strong {
-      color: var(--text-main);
-    }
-
-    .whatsapp-float {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background-color: var(--whatsapp-color);
-      color: #ffffff;
-      border-radius: 50px;
-      padding: 0.85rem 1.4rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      z-index: 999;
-      transition: var(--transition-fast);
-    }
-
-    .whatsapp-float:hover {
-      transform: scale(1.05);
-      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
-    }
-
-    .whatsapp-icon {
-      width: 22px;
-      height: 22px;
-      fill: currentColor;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.94);
-      z-index: 1000;
-      padding: 1.5rem;
-      overflow-y: auto;
-    }
-
-    .modal.active {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .modal-close {
-      color: var(--text-muted);
-      font-size: 2rem;
-      cursor: pointer;
-      line-height: 1;
-      transition: var(--transition-fast);
-    }
-
-    .modal-close:hover {
-      color: var(--text-main);
-    }
-
-    .thumb-grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .thumb-item {
-      position: relative;
-      aspect-ratio: 4 / 3;
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      cursor: pointer;
-      transition: var(--transition-fast);
-    }
-
-    .thumb-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-
-    .thumb-item:hover {
-      border-color: var(--accent-color);
-      transform: scale(1.03);
-    }
-
-    .thumb-item:hover img {
-      transform: scale(1.08);
-    }
-
-    .fullscreen-viewer {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      position: relative;
-    }
-
-    .fullscreen-viewer.active {
-      display: flex;
-    }
-
-    .back-to-thumbs-btn {
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: var(--transition-fast);
-    }
-
-    .back-to-thumbs-btn:hover {
-      background: var(--accent-color);
-      color: #000;
-    }
-
-    .modal-content-img {
-      max-width: 85vw;
-      max-height: 75vh;
-      border-radius: 8px;
-      object-fit: contain;
-    }
-
-    .modal-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      border: none;
-      font-size: 2rem;
-      padding: 0.6rem 1.1rem;
-      cursor: pointer;
-      border-radius: 6px;
-      transition: var(--transition-fast);
-    }
-
-    .modal-nav:hover {
-      background: var(--accent-color);
-      color: #000;
-    }
-
-    .modal-prev { left: 1rem; }
-    .modal-next { right: 1rem; }
-
-    .modal-caption {
-      margin-top: 1rem;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    footer {
-      border-top: 1px solid var(--border-color);
-      padding: 2.5rem 0;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <header>
-      <div class="header-top">
-        <div>
-          <div class="brand-title">AP Design Studio <span>Pte. Ltd.</span></div>
-          <div class="header-tagline">"Excellence in Spatial Planning & Space Utilization"</div>
-        </div>
-        <a href="https://wa.me/6597869046?text=Hi%20Irene,%20I%20would%20like%20to%20enquire%20about%20your%20interior%20design%20services." target="_blank" class="header-whatsapp">
-          💬 Contact Irene via WhatsApp
-        </a>
-      </div>
+<script>
+  let PROJECTS_DATA = {};
+  let currentProjectKey = null;
+  let currentIndex = 0;
+
+  const modal = document.getElementById('gallery-modal');
+  const modalTitle = document.getElementById('modal-title');
+  const thumbGrid = document.getElementById('thumb-grid');
+  const fullscreenViewer = document.getElementById('fullscreen-viewer');
+  const modalImg = document.getElementById('modal-img');
+  const modalCaption = document.getElementById('modal-caption');
+  const closeBtn = document.getElementById('modal-close');
+  const backBtn = document.getElementById('back-to-thumbs');
+  const prevBtn = document.getElementById('modal-prev');
+  const nextBtn = document.getElementById('modal-next');
+
+  // Load the auto-generated JSON file
+  async function loadGalleryData() {
+    try {
+      const response = await fetch('./gallery.json');
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+      PROJECTS_DATA = await response.json();
       
-      <div class="filter-wrapper">
-        <div class="filter-group">
-          <button class="filter-btn active" data-filter="all">All Projects</button>
-          <button class="filter-btn" data-filter="hdb">HDB</button>
-          <button class="filter-btn" data-filter="condo">Condo</button>
-          <button class="filter-btn" data-filter="landed">Landed</button>
-          <button class="filter-btn" data-filter="commercial">Commercial</button>
-        </div>
+      updatePortfolioGrid();
+    } catch (err) {
+      console.error("Failed to load gallery.json:", err);
+    }
+  }
 
-        <button id="open-calc-btn" class="calc-trigger-btn-inline">
-          🧮 Estimate Renovation Budget
-        </button>
-      </div>
-    </header>
+  function updatePortfolioGrid() {
+    const cards = document.querySelectorAll('.project-card[data-project]');
 
-    <main>
-      <section class="calculator-section" id="calculator-section">
-        <div class="section-title" style="margin-bottom: 0.5rem;">Interactive Renovation Estimator</div>
-        <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
-          Select your property type and scope of work below to generate an estimated budget range.
-        </p>
+    cards.forEach(card => {
+      const key = card.getAttribute('data-project');
+      const project = PROJECTS_DATA[key];
+      if (!project) return;
 
-        <div class="calc-grid">
-          <div>
-            <div class="calc-group">
-              <label class="calc-label">1. Select Property Type</label>
-              <div class="calc-options" id="prop-types">
-                <div class="calc-btn selected" data-base="38000">3-Room HDB</div>
-                <div class="calc-btn" data-base="48000">4-Room HDB</div>
-                <div class="calc-btn" data-base="58000">5-Room / Executive</div>
-                <div class="calc-btn" data-base="65000">Condo Unit</div>
-              </div>
-            </div>
+      const countBadge = card.querySelector('.gallery-count');
+      const coverImg = card.querySelector('.card-cover');
+      const gallery = project.gallery || [];
 
-            <div class="calc-group">
-              <label class="calc-label">2. Select Scope of Work</label>
-              <div class="calc-checkboxes" id="scope-items">
-                <label class="calc-check-item selected">
-                  <input type="checkbox" value="Custom Carpentry & Storage" data-cost="12000" checked> Custom Carpentry
-                </label>
-                <label class="calc-check-item selected">
-                  <input type="checkbox" value="Kitchen Overhaul & Cabinets" data-cost="9000" checked> Kitchen Renovation
-                </label>
-                <label class="calc-check-item selected">
-                  <input type="checkbox" value="2 Bathrooms Tiling & Sanitary" data-cost="8000" checked> Bathroom Tiling
-                </label>
-                <label class="calc-check-item">
-                  <input type="checkbox" value="Hacking & Masonry Works" data-cost="4500"> Hacking & Tiling
-                </label>
-              </div>
-            </div>
-
-            <div class="calc-group">
-              <label class="calc-label">3. Design & Material Standard</label>
-              <div class="calc-options" id="finish-levels">
-                <div class="calc-btn selected" data-multiplier="1.0">Essential</div>
-                <div class="calc-btn" data-multiplier="1.25">Premium Custom</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="calc-summary-card">
-            <div>
-              <h4 style="font-size: 1.05rem; color: var(--text-main);">Estimated Renovation Budget</h4>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
-                Based on current Singapore market benchmarks for spatial planning, masonry, and carpentry.
-              </p>
-
-              <div class="estimate-price-box">
-                <div class="estimate-label">Estimated Range</div>
-                <div class="estimate-value" id="est-display">$38,000 - $44,000</div>
-              </div>
-            </div>
-
-            <a id="calc-whatsapp-btn" href="#" target="_blank" class="calc-cta-btn">
-              💬 Send Breakdown to Irene on WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="designer-section">
-        <div class="designer-avatar">
-          <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/ireneKiew.jpeg" alt="Irene Kiew - Lead Interior Designer & Founder">
-        </div>
-        <div class="designer-info">
-          <h3>Irene Kiew</h3>
-          <div class="designer-role">Lead Interior Designer & Founder</div>
-          <p>
-            At <strong>AP Design Studio Pte. Ltd.</strong>, we firmly believe that great interior design lies in spatial excellence and smart utilization of space. Every square foot should serve a harmonized balance between practical functionality and aesthetic elegance.
-          </p>
-          <p>
-            With years of hands-on expertise managing complex Singapore residential and commercial transformations, Irene Kiew works closely with homeowners from initial space planning to final handover. Her approach centers on tailored, client-focused layouts, quality workmanship, and seamless execution.
-          </p>
-          <div class="designer-highlights">
-            <div class="highlight-item">
-              <strong>Space Optimization</strong>
-              Custom carpentry & layout planning
-            </div>
-            <div class="highlight-item">
-              <strong>End-to-End Service</strong>
-              Design, sourcing & site supervision
-            </div>
-            <div class="highlight-item">
-              <strong>Bespoke Solutions</strong>
-              HDB, Condo, Landed & Commercial
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="section-title">Featured Portfolio</div>
-
-      <div class="project-grid">
-        <!-- 1. HDB Project (168A Edgedale Plains) -->
-        <article class="project-card" data-category="hdb" data-project="edgedalefields">
-          <div class="card-media">
-            <span class="badge">HDB Resale 4-Room</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/168/0001InteriorKEN00702.jpg" alt="168A Edgedale Plains Living Room Design" class="card-cover">
-            <span class="gallery-count">📷 Loading...</span>
-          </div>
-          <div class="card-content">
-            <h3>168A Edgedale Plains</h3>
-            <div class="subtitle">Warm Minimalist French-Modern HDB Resale</div>
-            <p>Thoughtfully transformed 4-room resale HDB featuring a bright cream aesthetic, faux mantel feature wall, cove ceiling illumination, fluted TV console, and tailored space optimization.</p>
-            
-            <div class="specs-list">
-              <span><strong>Location:</strong> Edgedale Plains, Punggol</span>
-              <span><strong>Property:</strong> 4-Room Resale HDB</span>
-              <span><strong>Gallery:</strong> Click card to view all 18 photos</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 2. HDB Project (156B Bishan St) -->
-        <article class="project-card" data-category="hdb" data-project="bishan">
-          <div class="card-media">
-            <span class="badge">HDB BTO 4-Room</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/156BbishanSt/0001InteriorKEN07760.jpg" alt="156B Bishan Street Interior Design" class="card-cover">
-            <span class="gallery-count">📷 Loading...</span>
-          </div>
-          <div class="card-content">
-            <h3>156B Bishan Street</h3>
-            <div class="subtitle">BTO Contemporary Interior Design</div>
-            <p>Modern spatial redesign for a BTO 4-room unit, focusing on streamlined carpentry, custom storage solutions, and maximized living room space.</p>
-            
-            <div class="specs-list">
-              <span><strong>Location:</strong> Bishan Street 13</span>
-              <span><strong>Property:</strong> 4-Room HDB BTO</span>
-              <span><strong>Gallery:</strong> Click card to view all 19 photos</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 3. HDB Project (Edgedale Plains 5-Room) -->
-        <article class="project-card" data-category="hdb" data-project="edgedale">
-          <div class="card-media">
-            <span class="badge">HDB 5-Room</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/133edgedale/0029InteriorKEN00735.jpg" alt="Edgedale Plains Living Room Feature Wall" class="card-cover">
-            <span class="gallery-count">📷 Loading...</span>
-          </div>
-          <div class="card-content">
-            <h3>133 Edgedale Plains</h3>
-            <div class="subtitle">Contemporary Open-Plan Transformation</div>
-            <p>Full home renovation featuring a custom fluted acoustic TV wall, cove lighting, dry kitchen island, wet kitchen utility layout, study workstations, and luxury dark bathrooms.</p>
-            
-            <div class="specs-list">
-              <span><strong>Location:</strong> Edgedale Plains, Punggol</span>
-              <span><strong>Property:</strong> 5-Room HDB (Type B2)</span>
-              <span><strong>Gallery:</strong> Click card to view all photos</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 4. Condo Project (41 Bright Hill Drive) -->
-        <article class="project-card" data-category="condo" data-project="brighthill">
-          <div class="card-media">
-            <span class="badge">Condo Residence</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/condo/41brighthill/004108thSept-41BrightHillDriveInterior_A749177.jpg" alt="41 Bright Hill Drive Living & Dining Area" class="card-cover">
-            <span class="gallery-count">📷 Loading...</span>
-          </div>
-          <div class="card-content">
-            <h3>41 Bright Hill Drive</h3>
-            <div class="subtitle">Modern Slate & Navy Luxury Interior</div>
-            <p>Bespoke condominium transformation featuring a full-height slate TV feature wall with concealed warm strip lighting, integrated glass display cabinet, open-concept island dining with marble countertops, deep navy accents, and warm oak flooring.</p>
-            
-            <div class="specs-list">
-              <span><strong>Location:</strong> Bright Hill Drive, Bishan / Thomson</span>
-              <span><strong>Property:</strong> Condominium Residence</span>
-              <span><strong>Gallery:</strong> Click card to view all 53 photos</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 5. Condo Project (Florence Residences) -->
-        <article class="project-card" data-category="condo" data-project="florence">
-          <div class="card-media">
-            <span class="badge">Condo Residence</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/condo/florenceResidence/001618thOct-InteriorA7401429.jpg" alt="Florence Residences Living Room Interior Design" class="card-cover">
-            <span class="gallery-count">📷 Loading...</span>
-          </div>
-          <div class="card-content">
-            <h3>Florence Residences</h3>
-            <div class="subtitle">Contemporary Warm & Royal Blue Elegance</div>
-            <p>Refined condo unit transformation featuring customized warm wood cabinetry, warm ambient cove lighting, built-in banquet dining nook, soft-toned privacy curtains, and deep blue accent seating.</p>
-            
-            <div class="specs-list">
-              <span><strong>Location:</strong> Hougang Avenue 2</span>
-              <span><strong>Property:</strong> Condominium Residence</span>
-              <span><strong>Gallery:</strong> Click card to view full photo gallery</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 6. Landed Project -->
-        <article class="project-card" data-category="landed">
-          <div class="card-media">
-            <span class="badge">Landed Semi-D</span>
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Bukit Timah Estate Interior Design">
-          </div>
-          <div class="card-content">
-            <h3>Bukit Timah Estate</h3>
-            <div class="subtitle">Contemporary Architectural Design</div>
-            <p>Multi-generational living setup featuring seamless indoor-outdoor spatial flow and high-ceiling architectural ceiling features.</p>
-            
-            <div class="specs-list">
-              <span><strong>Location:</strong> Bukit Timah</span>
-              <span><strong>Property:</strong> Semi-Detached House</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 7. Commercial Project -->
-        <article class="project-card" data-category="commercial">
-          <div class="card-media">
-            <span class="badge">Commercial Retail</span>
-            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Raffles Place Office Space">
-          </div>
-          <div class="card-content">
-            <h3>Raffles Place</h3>
-            <div class="subtitle">Boutique Office Space</div>
-            <p>Ergonomic commercial layout planning, acoustic paneling, and custom corporate branding integration throughout meeting zones.</p>
-            
-            <div class="specs-list">
-              <span><strong>Location:</strong> CBD</span>
-              <span><strong>Property:</strong> Commercial Unit</span>
-            </div>
-          </div>
-        </article>
-      </div>
-    </main>
-
-    <footer>
-      <p>&copy; AP Design Studio Pte. Ltd. All rights reserved. | Specializing in HDB, Condo, Landed & Commercial Interior Design.</p>
-    </footer>
-  </div>
-
-  <a href="https://wa.me/6597869046?text=Hi%20Irene,%20I%20would%20like%20to%20enquire%20about%20your%20interior%20design%20services." target="_blank" class="whatsapp-float" aria-label="Contact via WhatsApp">
-    <svg class="whatsapp-icon" viewBox="0 0 24 24">
-      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.572-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-    </svg>
-    <span>WhatsApp Us</span>
-  </a>
-
-  <div class="modal" id="gallery-modal">
-    <div class="modal-header">
-      <div class="modal-title" id="modal-title">Project Gallery</div>
-      <span class="modal-close" id="modal-close">&times;</span>
-    </div>
-
-    <div class="thumb-grid-container" id="thumb-grid"></div>
-
-    <div class="fullscreen-viewer" id="fullscreen-viewer">
-      <button class="back-to-thumbs-btn" id="back-to-thumbs">← Back to Thumbnails</button>
-      <button class="modal-nav modal-prev" id="modal-prev">&#10094;</button>
-      <img class="modal-content-img" id="modal-img" src="" alt="Full Project Photo">
-      <button class="modal-nav modal-next" id="modal-next">&#10095;</button>
-      <div class="modal-caption" id="modal-caption"></div>
-    </div>
-  </div>
-
-  <script>
-    const REPO_OWNER = "brandonong";
-    const REPO_NAME = "design-portolio";
-
-    const PROJECTS = {
-      edgedalefields: {
-        folder: "hdb/168",
-        title: "168A Edgedale Plains (4-Room Resale HDB)",
-        coverFile: null,
-        fallbacks: [
-          "0001InteriorKEN00702.jpg", "0002InteriorKEN00703.jpg", "0003InteriorKEN00704.jpg",
-          "0004InteriorKEN00706.jpg", "0005InteriorKEN00707.jpg", "0006InteriorKEN00708.jpg",
-          "0007InteriorKEN00709.jpg", "0008InteriorKEN00710.jpg", "0009InteriorKEN00711.jpg",
-          "0010InteriorKEN00713.jpg", "0011InteriorKEN00714.jpg", "0012InteriorKEN00715.jpg",
-          "0013InteriorKEN00716.jpg", "0014InteriorKEN00717.jpg", "0015InteriorKEN00718.jpg",
-          "0016InteriorKEN00719.jpg", "0017InteriorKEN00720.jpg", "0018InteriorKEN00722.jpg"
-        ],
-        gallery: []
-      },
-      bishan: {
-        folder: "hdb/156BbishanSt",
-        title: "156B Bishan Street (HDB BTO 4-Room)",
-        coverFile: null,
-        fallbacks: [
-          "0001InteriorKEN07760.jpg", "0002InteriorKEN07761.jpg", "0003InteriorKEN07763.jpg",
-          "0004InteriorKEN07764.jpg", "0005InteriorKEN07765.jpg", "0006InteriorKEN07766.jpg",
-          "0007InteriorKEN07767.jpg", "0008InteriorKEN07768.jpg", "0009InteriorKEN07769.jpg",
-          "0010InteriorKEN07770.jpg", "0011InteriorKEN07771.jpg", "0012InteriorKEN07772.jpg",
-          "0013InteriorKEN07773.jpg", "0014InteriorKEN07775.jpg", "0015InteriorKEN07777.jpg",
-          "0016InteriorKEN07780.jpg", "0017InteriorKEN07785.jpg", "0018InteriorKEN07786.jpg",
-          "0019InteriorKEN07787.jpg"
-        ],
-        gallery: []
-      },
-      edgedale: {
-        folder: "hdb/133edgedale",
-        title: "133 Edgedale Plains (HDB 5-Room)",
-        coverFile: null,
-        fallbacks: [
-          "0029InteriorKEN00735.jpg", "0030InteriorKEN00737.jpg", "0031InteriorKEN00738.jpg",
-          "0032InteriorKEN00740.jpg", "0033InteriorKEN00741.jpg", "0034InteriorKEN00742.jpg",
-          "0035InteriorKEN00743.jpg", "0036InteriorKEN00744.jpg", "0037InteriorKEN00745.jpg",
-          "0038InteriorKEN00746.jpg", "0039InteriorKEN00747.jpg", "0040InteriorKEN00749.jpg",
-          "0041InteriorKEN00750.jpg", "0043InteriorKEN00752.jpg", "0044InteriorKEN00753.jpg",
-          "0045InteriorKEN00754.jpg", "0046InteriorKEN00757.jpg", "0047InteriorKEN00758.jpg",
-          "0048InteriorKEN00759.jpg"
-        ],
-        gallery: []
-      },
-      brighthill: {
-        folder: "condo/41brighthill",
-        title: "41 Bright Hill Drive (Condo)",
-        coverFile: "004108thSept-41BrightHillDriveInterior_A749177.jpg",
-        fallbacks: (function() {
-          const list = [];
-          const numbers = [
-            133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149,
-            151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167,
-            168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184,
-            185, 186, 187, 188, 189, 190, 191
-          ];
-          numbers.forEach((num, index) => {
-            const prefix = String(index + 1).padStart(4, '0');
-            list.push(`${prefix}08thSept-41BrightHillDriveInterior_A749${num}.jpg`);
-          });
-          return list;
-        })(),
-        gallery: []
-      },
-      florence: {
-        folder: "condo/florenceResidence",
-        title: "Florence Residences (Condo)",
-        coverFile: "001618thOct-InteriorA7401429.jpg",
-        fallbacks: [
-          "000118thOct-InteriorA7401397.jpg", "000218thOct-InteriorA7401399.jpg",
-          "000318thOct-InteriorA7401400.jpg", "000418thOct-InteriorA7401409.jpg",
-          "000518thOct-InteriorA7401411.jpg", "000618thOct-InteriorA7401415.jpg",
-          "000718thOct-InteriorA7401416.jpg", "000818thOct-InteriorA7401417.jpg",
-          "000918thOct-InteriorA7401418.jpg", "001018thOct-InteriorA7401419.jpg",
-          "001118thOct-InteriorA7401420.jpg", "001218thOct-InteriorA7401421.jpg",
-          "001318thOct-InteriorA7401423.jpg", "001418thOct-InteriorA7401424.jpg",
-          "001518thOct-InteriorA7401427.jpg", "001618thOct-InteriorA7401429.jpg",
-          "001718thOct-InteriorA7401431.jpg", "001818thOct-InteriorA7401435.jpg",
-          "001918thOct-InteriorA7401436.jpg", "002018thOct-InteriorA7401437.jpg",
-          "002118thOct-InteriorA7401440.jpg", "002218thOct-InteriorA7401443.jpg",
-          "002318thOct-InteriorA7401445.jpg"
-        ],
-        gallery: []
+      if (countBadge) {
+        countBadge.textContent = `📷 ${gallery.length} Photos`;
       }
-    };
 
-    let currentProjectKey = null;
-    let currentIndex = 0;
-
-    const modal = document.getElementById('gallery-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const thumbGrid = document.getElementById('thumb-grid');
-    const fullscreenViewer = document.getElementById('fullscreen-viewer');
-    const modalImg = document.getElementById('modal-img');
-    const modalCaption = document.getElementById('modal-caption');
-    const closeBtn = document.getElementById('modal-close');
-    const backBtn = document.getElementById('back-to-thumbs');
-    const prevBtn = document.getElementById('modal-prev');
-    const nextBtn = document.getElementById('modal-next');
-
-    async function loadProjectGalleries() {
-      for (const [key, config] of Object.entries(PROJECTS)) {
-        const card = document.querySelector(`[data-project="${key}"]`);
-        if (!card) continue;
-
-        const countBadge = card.querySelector('.gallery-count');
-        const coverImg = card.querySelector('.card-cover');
-
-        try {
-          // Dynamic API Fetching from GitHub repository
-          const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${config.folder}`);
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-          const files = await res.json();
-          const loadedFiles = files
-            .filter(f => f.type === 'file' && /\.(jpg|jpeg|png|webp)$/i.test(f.name))
-            .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
-            .map(f => ({ src: f.download_url, name: f.name }));
-
-          if (loadedFiles.length > 0) {
-            config.gallery = loadedFiles;
-          } else {
-            throw new Error("No image files returned");
-          }
-        } catch (e) {
-          console.warn(`Fallback active for project: ${key}`, e);
-          config.gallery = config.fallbacks.map(file => ({
-            src: `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${config.folder}/${file}`,
-            name: file
-          }));
+      if (coverImg && gallery.length > 0) {
+        if (project.coverFile) {
+          const matched = gallery.find(item => item.name === project.coverFile);
+          coverImg.src = matched ? matched.src : gallery[0].src;
+        } else {
+          coverImg.src = gallery[0].src;
         }
-
-        if (countBadge) countBadge.textContent = `📷 ${config.gallery.length} Photos`;
-
-        if (coverImg && config.gallery.length > 0) {
-          if (config.coverFile) {
-            const foundCover = config.gallery.find(item => item.name === config.coverFile);
-            coverImg.src = foundCover ? foundCover.src : `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${config.folder}/${config.coverFile}`;
-          } else {
-            coverImg.src = config.gallery[0].src;
-          }
-        }
-
-        card.addEventListener('click', () => {
-          openThumbnailGrid(key);
-        });
       }
-    }
 
-    loadProjectGalleries();
-
-    function openThumbnailGrid(projectKey) {
-      currentProjectKey = projectKey;
-      const project = PROJECTS[projectKey];
-      if (!project || project.gallery.length === 0) return;
-
-      modalTitle.textContent = `${project.title} (${project.gallery.length} Photos)`;
-      thumbGrid.innerHTML = '';
-
-      project.gallery.forEach((imgObj, index) => {
-        const thumbItem = document.createElement('div');
-        thumbItem.className = 'thumb-item';
-        thumbItem.innerHTML = `<img src="${imgObj.src}" alt="${imgObj.name}" loading="lazy">`;
-        
-        thumbItem.addEventListener('click', () => {
-          openFullscreenImage(index);
-        });
-
-        thumbGrid.appendChild(thumbItem);
-      });
-
-      thumbGrid.style.display = 'grid';
-      fullscreenViewer.classList.remove('active');
-      modal.classList.add('active');
-    }
-
-    function openFullscreenImage(index) {
-      currentIndex = index;
-      const project = PROJECTS[currentProjectKey];
-      const activeGallery = project.gallery;
-
-      modalImg.src = activeGallery[currentIndex].src;
-      modalCaption.textContent = `${project.title} — Photo ${currentIndex + 1} of ${activeGallery.length}`;
-
-      thumbGrid.style.display = 'none';
-      fullscreenViewer.classList.add('active');
-    }
-
-    backBtn.addEventListener('click', () => {
-      fullscreenViewer.classList.remove('active');
-      thumbGrid.style.display = 'grid';
-    });
-
-    closeBtn.addEventListener('click', () => {
-      modal.classList.remove('active');
-    });
-
-    prevBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (!currentProjectKey) return;
-      const gallery = PROJECTS[currentProjectKey].gallery;
-      currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
-      openFullscreenImage(currentIndex);
-    });
-
-    nextBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (!currentProjectKey) return;
-      const gallery = PROJECTS[currentProjectKey].gallery;
-      currentIndex = (currentIndex + 1) % gallery.length;
-      openFullscreenImage(currentIndex);
-    });
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) modal.classList.remove('active');
-    });
-
-    const buttons = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.project-card');
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.getAttribute('data-filter');
-
-        cards.forEach(c => {
-          if (filter === 'all' || c.getAttribute('data-category') === filter) {
-            c.style.display = 'flex';
-          } else {
-            c.style.display = 'none';
-          }
-        });
+      card.addEventListener('click', () => {
+        openThumbnailGrid(key);
       });
     });
+  }
 
-    const openCalcBtn = document.getElementById('open-calc-btn');
-    const calcSection = document.getElementById('calculator-section');
+  function openThumbnailGrid(projectKey) {
+    currentProjectKey = projectKey;
+    const project = PROJECTS_DATA[projectKey];
+    if (!project || !project.gallery || project.gallery.length === 0) return;
 
-    openCalcBtn.addEventListener('click', () => {
-      calcSection.classList.toggle('active');
-      openCalcBtn.classList.toggle('active');
+    modalTitle.textContent = `${project.title} (${project.gallery.length} Photos)`;
+    thumbGrid.innerHTML = '';
+
+    project.gallery.forEach((imgObj, index) => {
+      const thumbItem = document.createElement('div');
+      thumbItem.className = 'thumb-item';
+      thumbItem.innerHTML = `<img src="${imgObj.src}" alt="${imgObj.name}" loading="lazy">`;
       
-      if (calcSection.classList.contains('active')) {
-        calcSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
+      thumbItem.addEventListener('click', () => {
+        openFullscreenImage(index);
+      });
+
+      thumbGrid.appendChild(thumbItem);
     });
 
-    function initCalculator() {
-      const propBtns = document.querySelectorAll('#prop-types .calc-btn');
-      const finishBtns = document.querySelectorAll('#finish-levels .calc-btn');
-      const checkboxes = document.querySelectorAll('#scope-items input[type="checkbox"]');
-      const estDisplay = document.getElementById('est-display');
-      const waBtn = document.getElementById('calc-whatsapp-btn');
+    thumbGrid.style.display = 'grid';
+    fullscreenViewer.classList.remove('active');
+    modal.classList.add('active');
+  }
 
-      function calculateEstimate() {
-        let basePrice = 38000;
-        let selectedProp = "3-Room HDB";
-        propBtns.forEach(btn => {
-          if (btn.classList.contains('selected')) {
-            basePrice = parseInt(btn.getAttribute('data-base'));
-            selectedProp = btn.textContent.trim();
-          }
-        });
+  function openFullscreenImage(index) {
+    currentIndex = index;
+    const project = PROJECTS_DATA[currentProjectKey];
+    const activeGallery = project.gallery;
 
-        let scopeTotal = 0;
-        let selectedScopes = [];
-        checkboxes.forEach(cb => {
-          const parent = cb.parentElement;
-          if (cb.checked) {
-            parent.classList.add('selected');
-            scopeTotal += parseInt(cb.getAttribute('data-cost'));
-            selectedScopes.push(cb.value);
-          } else {
-            parent.classList.remove('selected');
-          }
-        });
+    modalImg.src = activeGallery[currentIndex].src;
+    modalCaption.textContent = `${project.title} — Photo ${currentIndex + 1} of ${activeGallery.length}`;
 
-        let multiplier = 1.0;
-        let selectedFinish = "Essential";
-        finishBtns.forEach(btn => {
-          if (btn.classList.contains('selected')) {
-            multiplier = parseFloat(btn.getAttribute('data-multiplier'));
-            selectedFinish = btn.textContent.trim();
-          }
-        });
+    thumbGrid.style.display = 'none';
+    fullscreenViewer.classList.add('active');
+  }
 
-        const totalMid = (basePrice + scopeTotal) * multiplier;
-        const minEstimate = Math.round((totalMid * 0.95) / 1000) * 1000;
-        const maxEstimate = Math.round((totalMid * 1.15) / 1000) * 1000;
+  backBtn.addEventListener('click', () => {
+    fullscreenViewer.classList.remove('active');
+    thumbGrid.style.display = 'grid';
+  });
 
-        const formattedMin = "$" + minEstimate.toLocaleString();
-        const formattedMax = "$" + maxEstimate.toLocaleString();
-        estDisplay.textContent = `${formattedMin} - ${formattedMax}`;
+  closeBtn.addEventListener('click', () => {
+    modal.classList.remove('active');
+  });
 
-        const scopeItemsText = selectedScopes.length > 0 
-          ? selectedScopes.map(item => `%0A - ${item}`).join('') 
-          : '%0A - Basic Space Planning';
+  prevBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!currentProjectKey || !PROJECTS_DATA[currentProjectKey]) return;
+    const gallery = PROJECTS_DATA[currentProjectKey].gallery;
+    currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
+    openFullscreenImage(currentIndex);
+  });
 
-        const rawMessage = 
-          `Hi Irene, I calculated an interior renovation estimate on AP Design Studio website and would like to arrange a consultation!%0A%0A` +
-          `📋 *Project Summary:*%0A` +
-          `• Property Type: ${selectedProp}%0A` +
-          `• Finish Standard: ${selectedFinish}%0A` +
-          `• Estimated Budget: ${formattedMin} - ${formattedMax}%0A%0A` +
-          `🛠️ *Selected Scope of Work:*${scopeItemsText}%0A%0A` +
-          `-----------------------------------%0A` +
-          `📌 *Key Collection / Timeline:* [e.g. Q3 2026 / Ready Now]%0A` +
-          `📌 *Property Location / Estate:* [e.g. Tampines GreenCourt]%0A` +
-          `📎 *(I will attach my floor plan in the next message)*`;
+  nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!currentProjectKey || !PROJECTS_DATA[currentProjectKey]) return;
+    const gallery = PROJECTS_DATA[currentProjectKey].gallery;
+    currentIndex = (currentIndex + 1) % gallery.length;
+    openFullscreenImage(currentIndex);
+  });
 
-        waBtn.href = `https://wa.me/6597869046?text=${rawMessage}`;
-      }
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.remove('active');
+  });
 
+  // Filter Buttons Logic
+  const buttons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.project-card');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.getAttribute('data-filter');
+
+      cards.forEach(c => {
+        if (filter === 'all' || c.getAttribute('data-category') === filter) {
+          c.style.display = 'flex';
+        } else {
+          c.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Calculator Logic
+  const openCalcBtn = document.getElementById('open-calc-btn');
+  const calcSection = document.getElementById('calculator-section');
+
+  openCalcBtn.addEventListener('click', () => {
+    calcSection.classList.toggle('active');
+    openCalcBtn.classList.toggle('active');
+    
+    if (calcSection.classList.contains('active')) {
+      calcSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  });
+
+  function initCalculator() {
+    const propBtns = document.querySelectorAll('#prop-types .calc-btn');
+    const finishBtns = document.querySelectorAll('#finish-levels .calc-btn');
+    const checkboxes = document.querySelectorAll('#scope-items input[type="checkbox"]');
+    const estDisplay = document.getElementById('est-display');
+    const waBtn = document.getElementById('calc-whatsapp-btn');
+
+    function calculateEstimate() {
+      let basePrice = 38000;
+      let selectedProp = "3-Room HDB";
       propBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          propBtns.forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          calculateEstimate();
-        });
+        if (btn.classList.contains('selected')) {
+          basePrice = parseInt(btn.getAttribute('data-base'));
+          selectedProp = btn.textContent.trim();
+        }
       });
 
-      finishBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          finishBtns.forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          calculateEstimate();
-        });
-      });
-
+      let scopeTotal = 0;
+      let selectedScopes = [];
       checkboxes.forEach(cb => {
-        cb.addEventListener('change', calculateEstimate);
+        const parent = cb.parentElement;
+        if (cb.checked) {
+          parent.classList.add('selected');
+          scopeTotal += parseInt(cb.getAttribute('data-cost'));
+          selectedScopes.push(cb.value);
+        } else {
+          parent.classList.remove('selected');
+        }
       });
 
-      calculateEstimate();
+      let multiplier = 1.0;
+      let selectedFinish = "Essential";
+      finishBtns.forEach(btn => {
+        if (btn.classList.contains('selected')) {
+          multiplier = parseFloat(btn.getAttribute('data-multiplier'));
+          selectedFinish = btn.textContent.trim();
+        }
+      });
+
+      const totalMid = (basePrice + scopeTotal) * multiplier;
+      const minEstimate = Math.round((totalMid * 0.95) / 1000) * 1000;
+      const maxEstimate = Math.round((totalMid * 1.15) / 1000) * 1000;
+
+      const formattedMin = "$" + minEstimate.toLocaleString();
+      const formattedMax = "$" + maxEstimate.toLocaleString();
+      estDisplay.textContent = `${formattedMin} - ${formattedMax}`;
+
+      const scopeItemsText = selectedScopes.length > 0 
+        ? selectedScopes.map(item => `%0A - ${item}`).join('') 
+        : '%0A - Basic Space Planning';
+
+      const rawMessage = 
+        `Hi Irene, I calculated an interior renovation estimate on AP Design Studio website and would like to arrange a consultation!%0A%0A` +
+        `📋 *Project Summary:*%0A` +
+        `• Property Type: ${selectedProp}%0A` +
+        `• Finish Standard: ${selectedFinish}%0A` +
+        `• Estimated Budget: ${formattedMin} - ${formattedMax}%0A%0A` +
+        `🛠️ *Selected Scope of Work:*${scopeItemsText}%0A%0A` +
+        `-----------------------------------%0A` +
+        `📌 *Key Collection / Timeline:* [e.g. Q3 2026 / Ready Now]%0A` +
+        `📌 *Property Location / Estate:* [e.g. Tampines GreenCourt]%0A` +
+        `📎 *(I will attach my floor plan in the next message)*`;
+
+      waBtn.href = `https://wa.me/6597869046?text=${rawMessage}`;
     }
 
-    initCalculator();
-  </script>
-</body>
-</html>
+    propBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        propBtns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        calculateEstimate();
+      });
+    });
+
+    finishBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        finishBtns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        calculateEstimate();
+      });
+    });
+
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', calculateEstimate);
+    });
+
+    calculateEstimate();
+  }
+
+  // Initialize
+  loadGalleryData();
+  initCalculator();
+</script>
