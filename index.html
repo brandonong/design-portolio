@@ -90,7 +90,6 @@
       color: #000;
     }
 
-    /* Filter bar layout with inline calculator button */
     .filter-wrapper {
       display: flex;
       justify-content: space-between;
@@ -130,7 +129,6 @@
       font-weight: 600;
     }
 
-    /* Inline Calculator Trigger Button */
     .calc-trigger-btn-inline {
       background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(20, 20, 24, 1) 100%);
       border: 1px solid var(--accent-color);
@@ -153,7 +151,6 @@
       transform: translateY(-1px);
     }
 
-    /* Section Headers */
     .section-title {
       font-size: 1.5rem;
       font-weight: 600;
@@ -171,7 +168,6 @@
       background: var(--border-color);
     }
 
-    /* Calculator Section Styling */
     .calculator-section {
       display: none;
       background: var(--bg-surface);
@@ -333,7 +329,6 @@
       transform: translateY(-2px);
     }
 
-    /* Designer Profile Section */
     .designer-section {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
@@ -413,7 +408,6 @@
       font-size: 1.1rem;
     }
 
-    /* Project Grid */
     .project-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -528,7 +522,6 @@
       color: var(--text-main);
     }
 
-    /* Floating WhatsApp Button */
     .whatsapp-float {
       position: fixed;
       bottom: 2rem;
@@ -559,7 +552,6 @@
       fill: currentColor;
     }
 
-    /* Modal Outer Wrapper */
     .modal {
       display: none;
       position: fixed;
@@ -605,7 +597,6 @@
       color: var(--text-main);
     }
 
-    /* Mode 1: Thumbnail Grid Layout */
     .thumb-grid-container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -642,7 +633,6 @@
       transform: scale(1.08);
     }
 
-    /* Mode 2: Fullscreen Single Image Viewer */
     .fullscreen-viewer {
       display: none;
       flex-direction: column;
@@ -733,7 +723,6 @@
         </a>
       </div>
       
-      <!-- Property Category Filters + Calculator Toggle Button -->
       <div class="filter-wrapper">
         <div class="filter-group">
           <button class="filter-btn active" data-filter="all">All Projects</button>
@@ -750,7 +739,6 @@
     </header>
 
     <main>
-      <!-- Calculator Panel (Directly below Header / Filter Bar) -->
       <section class="calculator-section" id="calculator-section">
         <div class="section-title" style="margin-bottom: 0.5rem;">Interactive Renovation Estimator</div>
         <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
@@ -816,7 +804,6 @@
         </div>
       </section>
 
-      <!-- Meet the Designer Section -->
       <section class="designer-section">
         <div class="designer-avatar">
           <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/ireneKiew.jpeg" alt="Irene Kiew - Lead Interior Designer & Founder">
@@ -847,24 +834,23 @@
         </div>
       </section>
 
-      <!-- Portfolio Grid Section -->
       <div class="section-title">Featured Portfolio</div>
 
       <div class="project-grid">
-        <!-- 1. HDB Project (168A Edgedale Fields) -->
+        <!-- 1. HDB Project (168A Edgedale Plains) -->
         <article class="project-card" data-category="hdb" data-project="edgedalefields">
           <div class="card-media">
             <span class="badge">HDB Resale 4-Room</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/168/0001InteriorKEN00702.jpg" alt="168A Edgedale Fields Living Room Design" class="card-cover">
+            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/168/0001InteriorKEN00702.jpg" alt="168A Edgedale Plains Living Room Design" class="card-cover">
             <span class="gallery-count">📷 Loading...</span>
           </div>
           <div class="card-content">
-            <h3>168A Edgedale Fields</h3>
+            <h3>168A Edgedale Plains</h3>
             <div class="subtitle">Warm Minimalist French-Modern HDB Resale</div>
             <p>Thoughtfully transformed 4-room resale HDB featuring a bright cream aesthetic, faux mantel feature wall, cove ceiling illumination, fluted TV console, and tailored space optimization.</p>
             
             <div class="specs-list">
-              <span><strong>Location:</strong> Edgedale Fields, Punggol</span>
+              <span><strong>Location:</strong> Edgedale Plains, Punggol</span>
               <span><strong>Property:</strong> 4-Room Resale HDB</span>
               <span><strong>Gallery:</strong> Click card to view all 18 photos</span>
             </div>
@@ -891,7 +877,7 @@
           </div>
         </article>
 
-        <!-- 3. HDB Project (Edgedale Plains) -->
+        <!-- 3. HDB Project (Edgedale Plains 5-Room) -->
         <article class="project-card" data-category="hdb" data-project="edgedale">
           <div class="card-media">
             <span class="badge">HDB 5-Room</span>
@@ -899,7 +885,7 @@
             <span class="gallery-count">📷 Loading...</span>
           </div>
           <div class="card-content">
-            <h3>Edgedale Plains</h3>
+            <h3>133 Edgedale Plains</h3>
             <div class="subtitle">Contemporary Open-Plan Transformation</div>
             <p>Full home renovation featuring a custom fluted acoustic TV wall, cove lighting, dry kitchen island, wet kitchen utility layout, study workstations, and luxury dark bathrooms.</p>
             
@@ -915,7 +901,7 @@
         <article class="project-card" data-category="condo" data-project="brighthill">
           <div class="card-media">
             <span class="badge">Condo Residence</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/condo/41brighthill/003208thSept-41BrightHillDriveInterior_A749167.jpg" alt="41 Bright Hill Drive Living Room" class="card-cover">
+            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/condo/41brighthill/004108thSept-41BrightHillDriveInterior_A749177.jpg" alt="41 Bright Hill Drive Living & Dining Area" class="card-cover">
             <span class="gallery-count">📷 Loading...</span>
           </div>
           <div class="card-content">
@@ -974,7 +960,6 @@
     </footer>
   </div>
 
-  <!-- Persistent Floating WhatsApp Button -->
   <a href="https://wa.me/6597869046?text=Hi%20Irene,%20I%20would%20like%20to%20enquire%20about%20your%20interior%20design%20services." target="_blank" class="whatsapp-float" aria-label="Contact via WhatsApp">
     <svg class="whatsapp-icon" viewBox="0 0 24 24">
       <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.572-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
@@ -982,17 +967,14 @@
     <span>WhatsApp Us</span>
   </a>
 
-  <!-- Thumbnail & Fullscreen Modal Overlay -->
   <div class="modal" id="gallery-modal">
     <div class="modal-header">
       <div class="modal-title" id="modal-title">Project Gallery</div>
       <span class="modal-close" id="modal-close">&times;</span>
     </div>
 
-    <!-- View 1: Thumbnail Grid -->
     <div class="thumb-grid-container" id="thumb-grid"></div>
 
-    <!-- View 2: Fullscreen Single Photo Viewer -->
     <div class="fullscreen-viewer" id="fullscreen-viewer">
       <button class="back-to-thumbs-btn" id="back-to-thumbs">← Back to Thumbnails</button>
       <button class="modal-nav modal-prev" id="modal-prev">&#10094;</button>
@@ -1006,11 +988,10 @@
     const REPO_OWNER = "brandonong";
     const REPO_NAME = "design-portolio";
 
-    // Project configurations
     const PROJECTS = {
       edgedalefields: {
         folder: "hdb/168",
-        title: "168A Edgedale Fields (4-Room Resale HDB)",
+        title: "168A Edgedale Plains (4-Room Resale HDB)",
         fallbacks: [
           "0001InteriorKEN00702.jpg", "0002InteriorKEN00703.jpg", "0003InteriorKEN00704.jpg",
           "0004InteriorKEN00706.jpg", "0005InteriorKEN00707.jpg", "0006InteriorKEN00708.jpg",
@@ -1037,7 +1018,7 @@
       },
       edgedale: {
         folder: "hdb/133edgedale",
-        title: "Edgedale Plains (HDB 5-Room)",
+        title: "133 Edgedale Plains (HDB 5-Room)",
         fallbacks: [
           "0029InteriorKEN00735.jpg", "0030InteriorKEN00737.jpg", "0031InteriorKEN00738.jpg",
           "0032InteriorKEN00740.jpg", "0033InteriorKEN00741.jpg", "0034InteriorKEN00742.jpg",
@@ -1115,8 +1096,14 @@
         }
 
         if (countBadge) countBadge.textContent = `📷 ${config.gallery.length} Photos`;
+
+        // Keep explicit cover image override for Bright Hill card to display dining/living photo instead of bedroom
         if (coverImg && config.gallery.length > 0) {
-          coverImg.src = config.gallery[0].src;
+          if (key === 'brighthill') {
+            coverImg.src = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${config.folder}/004108thSept-41BrightHillDriveInterior_A749177.jpg`;
+          } else {
+            coverImg.src = config.gallery[0].src;
+          }
         }
 
         card.addEventListener('click', () => {
@@ -1127,7 +1114,6 @@
 
     loadProjectGalleries();
 
-    // Render Thumbnail Grid Mode
     function openThumbnailGrid(projectKey) {
       currentProjectKey = projectKey;
       const project = PROJECTS[projectKey];
@@ -1153,7 +1139,6 @@
       modal.classList.add('active');
     }
 
-    // Render Fullscreen Single Image Mode
     function openFullscreenImage(index) {
       currentIndex = index;
       const project = PROJECTS[currentProjectKey];
@@ -1166,7 +1151,6 @@
       fullscreenViewer.classList.add('active');
     }
 
-    // Modal Action Listeners
     backBtn.addEventListener('click', () => {
       fullscreenViewer.classList.remove('active');
       thumbGrid.style.display = 'grid';
@@ -1196,7 +1180,6 @@
       if (e.target === modal) modal.classList.remove('active');
     });
 
-    // Category Filter Handler
     const buttons = document.querySelectorAll('.filter-btn');
     const cards = document.querySelectorAll('.project-card');
 
@@ -1216,7 +1199,6 @@
       });
     });
 
-    // Smooth Inline Toggle for Calculator
     const openCalcBtn = document.getElementById('open-calc-btn');
     const calcSection = document.getElementById('calculator-section');
 
@@ -1229,7 +1211,6 @@
       }
     });
 
-    // Renovation Estimator Calculation Logic
     function initCalculator() {
       const propBtns = document.querySelectorAll('#prop-types .calc-btn');
       const finishBtns = document.querySelectorAll('#finish-levels .calc-btn');
