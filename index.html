@@ -37,7 +37,7 @@
     header {
       padding: 2.5rem 0 2rem;
       border-bottom: 1px solid var(--border-color);
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
@@ -90,11 +90,20 @@
       color: #000;
     }
 
+    /* Filter bar layout with inline calculator button */
     .filter-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .filter-group {
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
-      margin-top: 0.5rem;
     }
     
     .filter-btn {
@@ -121,6 +130,29 @@
       font-weight: 600;
     }
 
+    /* Inline Calculator Trigger Button */
+    .calc-trigger-btn-inline {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(20, 20, 24, 1) 100%);
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .calc-trigger-btn-inline:hover, .calc-trigger-btn-inline.active {
+      background: var(--accent-color);
+      color: #000;
+      transform: translateY(-1px);
+    }
+
     /* Section Headers */
     .section-title {
       font-size: 1.5rem;
@@ -137,6 +169,168 @@
       flex-grow: 1;
       height: 1px;
       background: var(--border-color);
+    }
+
+    /* Calculator Section Styling */
+    .calculator-section {
+      display: none;
+      background: var(--bg-surface);
+      border: 1px solid var(--accent-color);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .calculator-section.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .calc-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .calc-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .calc-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.6rem;
+    }
+
+    .calc-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.65rem 0.5rem;
+      border-radius: 8px;
+      font-size: 0.825rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: center;
+      transition: var(--transition-fast);
+    }
+
+    .calc-btn:hover {
+      border-color: var(--accent-color);
+      color: var(--text-main);
+    }
+
+    .calc-btn.selected {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .calc-checkboxes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .calc-check-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.65rem 0.75rem;
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition-fast);
+    }
+
+    .calc-check-item input {
+      accent-color: var(--accent-color);
+      cursor: pointer;
+    }
+
+    .calc-check-item.selected {
+      border-color: var(--accent-color);
+      color: var(--text-main);
+    }
+
+    .calc-summary-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .estimate-price-box {
+      background: rgba(10, 10, 12, 0.6);
+      border: 1px dashed var(--accent-color);
+      border-radius: 8px;
+      padding: 1.25rem;
+      text-align: center;
+      margin: 1.25rem 0;
+    }
+
+    .estimate-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    .estimate-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent-color);
+    }
+
+    .calc-cta-btn {
+      background: var(--whatsapp-color);
+      color: #000;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.85rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      transition: var(--transition-fast);
+    }
+
+    .calc-cta-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
     }
 
     /* Designer Profile Section */
@@ -224,7 +418,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 2rem;
-      padding-bottom: 5rem;
+      margin-bottom: 4rem;
     }
 
     .project-card {
@@ -445,17 +639,89 @@
         </a>
       </div>
       
-      <!-- Property Category Filters -->
+      <!-- Property Category Filters + Calculator Toggle Button -->
       <div class="filter-wrapper">
-        <button class="filter-btn active" data-filter="all">All Projects</button>
-        <button class="filter-btn" data-filter="hdb">HDB</button>
-        <button class="filter-btn" data-filter="condo">Condo</button>
-        <button class="filter-btn" data-filter="landed">Landed</button>
-        <button class="filter-btn" data-filter="commercial">Commercial</button>
+        <div class="filter-group">
+          <button class="filter-btn active" data-filter="all">All Projects</button>
+          <button class="filter-btn" data-filter="hdb">HDB</button>
+          <button class="filter-btn" data-filter="condo">Condo</button>
+          <button class="filter-btn" data-filter="landed">Landed</button>
+          <button class="filter-btn" data-filter="commercial">Commercial</button>
+        </div>
+
+        <button id="open-calc-btn" class="calc-trigger-btn-inline">
+          🧮 Estimate Renovation Budget
+        </button>
       </div>
     </header>
 
     <main>
+      <!-- Calculator Panel (Directly below Header / Filter Bar) -->
+      <section class="calculator-section" id="calculator-section">
+        <div class="section-title" style="margin-bottom: 0.5rem;">Interactive Renovation Estimator</div>
+        <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+          Select your property type and scope of work below to generate an estimated budget range.
+        </p>
+
+        <div class="calc-grid">
+          <div>
+            <div class="calc-group">
+              <label class="calc-label">1. Select Property Type</label>
+              <div class="calc-options" id="prop-types">
+                <div class="calc-btn selected" data-base="38000">3-Room HDB</div>
+                <div class="calc-btn" data-base="48000">4-Room HDB</div>
+                <div class="calc-btn" data-base="58000">5-Room / Executive</div>
+                <div class="calc-btn" data-base="65000">Condo Unit</div>
+              </div>
+            </div>
+
+            <div class="calc-group">
+              <label class="calc-label">2. Select Scope of Work</label>
+              <div class="calc-checkboxes" id="scope-items">
+                <label class="calc-check-item selected">
+                  <input type="checkbox" value="Custom Carpentry & Storage" data-cost="12000" checked> Custom Carpentry
+                </label>
+                <label class="calc-check-item selected">
+                  <input type="checkbox" value="Kitchen Overhaul & Cabinets" data-cost="9000" checked> Kitchen Renovation
+                </label>
+                <label class="calc-check-item selected">
+                  <input type="checkbox" value="2 Bathrooms Tiling & Sanitary" data-cost="8000" checked> Bathroom Tiling
+                </label>
+                <label class="calc-check-item">
+                  <input type="checkbox" value="Hacking & Masonry Works" data-cost="4500"> Hacking & Tiling
+                </label>
+              </div>
+            </div>
+
+            <div class="calc-group">
+              <label class="calc-label">3. Design & Material Standard</label>
+              <div class="calc-options" id="finish-levels">
+                <div class="calc-btn selected" data-multiplier="1.0">Essential</div>
+                <div class="calc-btn" data-multiplier="1.25">Premium Custom</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="calc-summary-card">
+            <div>
+              <h4 style="font-size: 1.05rem; color: var(--text-main);">Estimated Renovation Budget</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+                Based on current Singapore market benchmarks for spatial planning, masonry, and carpentry.
+              </p>
+
+              <div class="estimate-price-box">
+                <div class="estimate-label">Estimated Range</div>
+                <div class="estimate-value" id="est-display">$38,000 - $44,000</div>
+              </div>
+            </div>
+
+            <a id="calc-whatsapp-btn" href="#" target="_blank" class="calc-cta-btn">
+              💬 Send Breakdown to Irene on WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
       <!-- Meet the Designer Section -->
       <section class="designer-section">
         <div class="designer-avatar">
@@ -487,15 +753,15 @@
         </div>
       </section>
 
-      <!-- Portfolio Section -->
+      <!-- Portfolio Grid Section -->
       <div class="section-title">Featured Portfolio</div>
 
       <div class="project-grid">
         <!-- 1. HDB Project (Edgedale Plains) -->
-        <article class="project-card" data-category="hdb" id="edgedale-card">
+        <article class="project-card" data-category="hdb" data-project="edgedale">
           <div class="card-media">
             <span class="badge">HDB 5-Room</span>
-            <img src="./hdb/133edgedale/0029InteriorKEN00735.jpg" alt="Edgedale Plains Living Room Feature Wall" id="edgedale-cover">
+            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/133edgedale/0029InteriorKEN00735.jpg" alt="Edgedale Plains Living Room Feature Wall" class="card-cover">
             <span class="gallery-count">📷 Loading...</span>
           </div>
           <div class="card-content">
@@ -511,20 +777,22 @@
           </div>
         </article>
 
-        <!-- 2. Condo Project -->
-        <article class="project-card" data-category="condo">
+        <!-- 2. Condo Project (41 Bright Hill Drive) -->
+        <article class="project-card" data-category="condo" data-project="brighthill">
           <div class="card-media">
-            <span class="badge">Condo 3-Bed</span>
-            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" alt="Orchard Boulevard Interior Design">
+            <span class="badge">Condo Residence</span>
+            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/condo/41brighthill/003208thSept-41BrightHillDriveInterior_A749167.jpg" alt="41 Bright Hill Drive Living Room" class="card-cover">
+            <span class="gallery-count">📷 Loading...</span>
           </div>
           <div class="card-content">
-            <h3>Orchard Boulevard</h3>
-            <div class="subtitle">Modern Luxury Residence</div>
-            <p>Sleek metallic accents, marble wall paneling, and custom integrated ambient cove lighting across the entire open-concept living area.</p>
+            <h3>41 Bright Hill Drive</h3>
+            <div class="subtitle">Modern Slate & Navy Luxury Interior</div>
+            <p>Bespoke condominium transformation featuring a full-height slate TV feature wall with concealed warm strip lighting, integrated glass display cabinet, open-concept island dining with marble countertops, deep navy accents, and warm oak flooring.</p>
             
             <div class="specs-list">
-              <span><strong>Location:</strong> Central Region</span>
-              <span><strong>Property:</strong> 3-Bedroom Condo</span>
+              <span><strong>Location:</strong> Bright Hill Drive, Bishan / Thomson</span>
+              <span><strong>Property:</strong> Condominium Residence</span>
+              <span><strong>Gallery:</strong> Click card to view all photos</span>
             </div>
           </div>
         </article>
@@ -590,98 +858,140 @@
   </div>
 
   <script>
-    // GitHub API configuration for dynamic image listing
     const REPO_OWNER = "brandonong";
     const REPO_NAME = "design-portolio";
-    const FOLDER_PATH = "hdb/133edgedale";
 
-    let projectGallery = [];
+    // Project configurations with fallback image lists
+    const PROJECTS = {
+      edgedale: {
+        folder: "hdb/133edgedale",
+        title: "Edgedale Plains",
+        fallbacks: [
+          "0029InteriorKEN00735.jpg", "0030InteriorKEN00737.jpg", "0031InteriorKEN00738.jpg",
+          "0032InteriorKEN00740.jpg", "0033InteriorKEN00741.jpg", "0034InteriorKEN00742.jpg",
+          "0035InteriorKEN00743.jpg", "0036InteriorKEN00744.jpg", "0037InteriorKEN00745.jpg",
+          "0038InteriorKEN00746.jpg", "0039InteriorKEN00747.jpg", "0040InteriorKEN00749.jpg",
+          "0041InteriorKEN00750.jpg", "0043InteriorKEN00752.jpg", "0044InteriorKEN00753.jpg",
+          "0045InteriorKEN00754.jpg", "0046InteriorKEN00757.jpg", "0047InteriorKEN00758.jpg",
+          "0048InteriorKEN00759.jpg"
+        ],
+        gallery: []
+      },
+      brighthill: {
+        folder: "condo/41brighthill",
+        title: "41 Bright Hill Drive",
+        // Sequence built from screenshot (_A749133 through _A749191)
+        fallbacks: (function() {
+          const list = [];
+          const numbers = [
+            133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149,
+            151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167,
+            168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184,
+            185, 186, 187, 188, 189, 190, 191
+          ];
+          numbers.forEach((num, index) => {
+            const prefix = String(index + 1).padStart(4, '0');
+            list.push(`${prefix}08thSept-41BrightHillDriveInterior_A749${num}.jpg`);
+          });
+          return list;
+        })(),
+        gallery: []
+      }
+    };
+
+    let currentProjectKey = null;
     let currentIndex = 0;
 
     const modal = document.getElementById('gallery-modal');
     const modalImg = document.getElementById('modal-img');
     const modalCaption = document.getElementById('modal-caption');
-    const card = document.getElementById('edgedale-card');
-    const coverImg = document.getElementById('edgedale-cover');
     const closeBtn = document.getElementById('modal-close');
     const prevBtn = document.getElementById('modal-prev');
     const nextBtn = document.getElementById('modal-next');
-    const countBadge = card.querySelector('.gallery-count');
 
-    // Fetch folder contents dynamically from GitHub REST API
-    async function fetchGalleryImages() {
-      try {
-        const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FOLDER_PATH}`);
-        
-        if (!response.ok) {
-          throw new Error(`GitHub API HTTP error! status: ${response.status}`);
-        }
+    // Fetch GitHub project images with fallback handling
+    async function loadProjectGalleries() {
+      for (const [key, config] of Object.entries(PROJECTS)) {
+        const card = document.querySelector(`[data-project="${key}"]`);
+        if (!card) continue;
 
-        const files = await response.json();
+        const countBadge = card.querySelector('.gallery-count');
+        const coverImg = card.querySelector('.card-cover');
 
-        // Filter and map with explicit relative path prefix ./
-        projectGallery = files
-          .filter(file => file.type === 'file' && /\.(jpg|jpeg|png|webp)$/i.test(file.name))
-          .map((file) => ({
-            src: `./${FOLDER_PATH}/${file.name}`,
-            name: file.name
+        try {
+          const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${config.folder}`);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+          const files = await res.json();
+          const loadedFiles = files
+            .filter(f => f.type === 'file' && /\.(jpg|jpeg|png|webp)$/i.test(f.name))
+            .map(f => ({ src: f.download_url, name: f.name }));
+
+          if (loadedFiles.length > 0) {
+            config.gallery = loadedFiles;
+          } else {
+            throw new Error("No image files returned");
+          }
+        } catch (e) {
+          console.warn(`Fallback active for project: ${key}`, e);
+          config.gallery = config.fallbacks.map(file => ({
+            src: `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${config.folder}/${file}`,
+            name: file
           }));
-
-        // Dynamically update card badge count
-        if (countBadge) {
-          countBadge.textContent = `📷 ${projectGallery.length} Photos`;
         }
 
-        // Set card cover image to the first photo found
-        if (projectGallery.length > 0 && coverImg) {
-          coverImg.src = projectGallery[0].src;
+        if (countBadge) countBadge.textContent = `📷 ${config.gallery.length} Photos`;
+        if (coverImg && config.gallery.length > 0) {
+          // Keep key cover photo if present, otherwise default to first image
+          const preferredCover = config.gallery.find(img => img.name.includes("167")) || config.gallery[0];
+          coverImg.src = preferredCover.src;
         }
 
-      } catch (error) {
-        console.error("Failed to load images dynamically:", error);
-        if (countBadge) {
-          countBadge.textContent = "📷 Gallery Available";
-        }
+        // Click handler to launch gallery modal
+        card.addEventListener('click', () => {
+          currentProjectKey = key;
+          currentIndex = 0;
+          updateModal();
+          modal.classList.add('active');
+        });
       }
     }
 
-    // Initialize API fetch on page load
-    fetchGalleryImages();
+    loadProjectGalleries();
 
-    function updateModal(index) {
-      if (projectGallery.length === 0) return;
-      modalImg.src = projectGallery[index].src;
-      modalCaption.textContent = `${index + 1} of ${projectGallery.length}: ${projectGallery[index].name}`;
+    function updateModal() {
+      if (!currentProjectKey || !PROJECTS[currentProjectKey]) return;
+      const project = PROJECTS[currentProjectKey];
+      const activeGallery = project.gallery;
+      if (activeGallery.length === 0) return;
+
+      modalImg.src = activeGallery[currentIndex].src;
+      modalCaption.textContent = `${project.title} — ${currentIndex + 1} of ${activeGallery.length}`;
     }
-
-    card.addEventListener('click', () => {
-      if (projectGallery.length === 0) return;
-      currentIndex = 0;
-      updateModal(currentIndex);
-      modal.classList.add('active');
-    });
 
     closeBtn.addEventListener('click', () => modal.classList.remove('active'));
 
     prevBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (projectGallery.length === 0) return;
-      currentIndex = (currentIndex - 1 + projectGallery.length) % projectGallery.length;
-      updateModal(currentIndex);
+      if (!currentProjectKey) return;
+      const gallery = PROJECTS[currentProjectKey].gallery;
+      currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
+      updateModal();
     });
 
     nextBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (projectGallery.length === 0) return;
-      currentIndex = (currentIndex + 1) % projectGallery.length;
-      updateModal(currentIndex);
+      if (!currentProjectKey) return;
+      const gallery = PROJECTS[currentProjectKey].gallery;
+      currentIndex = (currentIndex + 1) % gallery.length;
+      updateModal();
     });
 
     modal.addEventListener('click', (e) => {
       if (e.target === modal) modal.classList.remove('active');
     });
 
-    // Property Category Filter Handling
+    // Category Filter Handler
     const buttons = document.querySelectorAll('.filter-btn');
     const cards = document.querySelectorAll('.project-card');
 
@@ -689,7 +999,6 @@
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
         const filter = btn.getAttribute('data-filter');
 
         cards.forEach(c => {
@@ -701,6 +1010,111 @@
         });
       });
     });
+
+    // Smooth Inline Toggle for Calculator
+    const openCalcBtn = document.getElementById('open-calc-btn');
+    const calcSection = document.getElementById('calculator-section');
+
+    openCalcBtn.addEventListener('click', () => {
+      calcSection.classList.toggle('active');
+      openCalcBtn.classList.toggle('active');
+      
+      if (calcSection.classList.contains('active')) {
+        calcSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+
+    // Renovation Estimator Calculation Logic
+    function initCalculator() {
+      const propBtns = document.querySelectorAll('#prop-types .calc-btn');
+      const finishBtns = document.querySelectorAll('#finish-levels .calc-btn');
+      const checkboxes = document.querySelectorAll('#scope-items input[type="checkbox"]');
+      const estDisplay = document.getElementById('est-display');
+      const waBtn = document.getElementById('calc-whatsapp-btn');
+
+      function calculateEstimate() {
+        let basePrice = 38000;
+        let selectedProp = "3-Room HDB";
+        propBtns.forEach(btn => {
+          if (btn.classList.contains('selected')) {
+            basePrice = parseInt(btn.getAttribute('data-base'));
+            selectedProp = btn.textContent.trim();
+          }
+        });
+
+        let scopeTotal = 0;
+        let selectedScopes = [];
+        checkboxes.forEach(cb => {
+          const parent = cb.parentElement;
+          if (cb.checked) {
+            parent.classList.add('selected');
+            scopeTotal += parseInt(cb.getAttribute('data-cost'));
+            selectedScopes.push(cb.value);
+          } else {
+            parent.classList.remove('selected');
+          }
+        });
+
+        let multiplier = 1.0;
+        let selectedFinish = "Essential";
+        finishBtns.forEach(btn => {
+          if (btn.classList.contains('selected')) {
+            multiplier = parseFloat(btn.getAttribute('data-multiplier'));
+            selectedFinish = btn.textContent.trim();
+          }
+        });
+
+        const totalMid = (basePrice + scopeTotal) * multiplier;
+        const minEstimate = Math.round((totalMid * 0.95) / 1000) * 1000;
+        const maxEstimate = Math.round((totalMid * 1.15) / 1000) * 1000;
+
+        const formattedMin = "$" + minEstimate.toLocaleString();
+        const formattedMax = "$" + maxEstimate.toLocaleString();
+        estDisplay.textContent = `${formattedMin} - ${formattedMax}`;
+
+        const scopeItemsText = selectedScopes.length > 0 
+          ? selectedScopes.map(item => `%0A - ${item}`).join('') 
+          : '%0A - Basic Space Planning';
+
+        const rawMessage = 
+          `Hi Irene, I calculated an interior renovation estimate on AP Design Studio website and would like to arrange a consultation!%0A%0A` +
+          `📋 *Project Summary:*%0A` +
+          `• Property Type: ${selectedProp}%0A` +
+          `• Finish Standard: ${selectedFinish}%0A` +
+          `• Estimated Budget: ${formattedMin} - ${formattedMax}%0A%0A` +
+          `🛠️ *Selected Scope of Work:*${scopeItemsText}%0A%0A` +
+          `-----------------------------------%0A` +
+          `📌 *Key Collection / Timeline:* [e.g. Q3 2026 / Ready Now]%0A` +
+          `📌 *Property Location / Estate:* [e.g. Tampines GreenCourt]%0A` +
+          `📎 *(I will attach my floor plan in the next message)*`;
+
+        waBtn.href = `https://wa.me/6597869046?text=${rawMessage}`;
+      }
+
+      propBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          propBtns.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          calculateEstimate();
+        });
+      });
+
+      finishBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          finishBtns.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          calculateEstimate();
+        });
+      });
+
+      checkboxes.forEach(cb => {
+        cb.addEventListener('change', calculateEstimate);
+      });
+
+      calculateEstimate();
+    }
+
+    initCalculator();
   </script>
 </body>
 </html>
