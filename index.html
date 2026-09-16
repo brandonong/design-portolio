@@ -559,7 +559,7 @@
       fill: currentColor;
     }
 
-    /* Lightbox Modal Gallery */
+    /* Modal Outer Wrapper */
     .modal {
       display: none;
       position: fixed;
@@ -567,31 +567,119 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.92);
+      background: rgba(0, 0, 0, 0.94);
       z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+      padding: 1.5rem;
+      overflow-y: auto;
     }
 
     .modal.active {
       display: flex;
+      flex-direction: column;
     }
 
-    .modal-content {
-      max-width: 90%;
-      max-height: 80vh;
-      border-radius: 8px;
-      object-fit: contain;
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-main);
     }
 
     .modal-close {
-      position: absolute;
-      top: 1.5rem;
-      right: 2rem;
-      color: #fff;
+      color: var(--text-muted);
       font-size: 2rem;
       cursor: pointer;
+      line-height: 1;
+      transition: var(--transition-fast);
+    }
+
+    .modal-close:hover {
+      color: var(--text-main);
+    }
+
+    /* Mode 1: Thumbnail Grid Layout */
+    .thumb-grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .thumb-item {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .thumb-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .thumb-item:hover {
+      border-color: var(--accent-color);
+      transform: scale(1.03);
+    }
+
+    .thumb-item:hover img {
+      transform: scale(1.08);
+    }
+
+    /* Mode 2: Fullscreen Single Image Viewer */
+    .fullscreen-viewer {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      position: relative;
+    }
+
+    .fullscreen-viewer.active {
+      display: flex;
+    }
+
+    .back-to-thumbs-btn {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .back-to-thumbs-btn:hover {
+      background: var(--accent-color);
+      color: #000;
+    }
+
+    .modal-content-img {
+      max-width: 85vw;
+      max-height: 75vh;
+      border-radius: 8px;
+      object-fit: contain;
     }
 
     .modal-nav {
@@ -602,13 +690,19 @@
       color: #fff;
       border: none;
       font-size: 2rem;
-      padding: 0.5rem 1rem;
+      padding: 0.6rem 1.1rem;
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: 6px;
+      transition: var(--transition-fast);
     }
 
-    .modal-prev { left: 1.5rem; }
-    .modal-next { right: 1.5rem; }
+    .modal-nav:hover {
+      background: var(--accent-color);
+      color: #000;
+    }
+
+    .modal-prev { left: 1rem; }
+    .modal-next { right: 1rem; }
 
     .modal-caption {
       margin-top: 1rem;
@@ -777,7 +871,7 @@
           </div>
         </article>
 
-        <!-- 2. Condo Project (41 Bright Hill Drive) -->
+        <!-- 2. Condo Project (41 Bright Hill Drive - 53 Photos) -->
         <article class="project-card" data-category="condo" data-project="brighthill">
           <div class="card-media">
             <span class="badge">Condo Residence</span>
@@ -792,7 +886,7 @@
             <div class="specs-list">
               <span><strong>Location:</strong> Bright Hill Drive, Bishan / Thomson</span>
               <span><strong>Property:</strong> Condominium Residence</span>
-              <span><strong>Gallery:</strong> Click card to view all photos</span>
+              <span><strong>Gallery:</strong> Click card to view all 53 photos</span>
             </div>
           </div>
         </article>
@@ -848,24 +942,35 @@
     <span>WhatsApp Us</span>
   </a>
 
-  <!-- Lightbox Gallery Modal -->
+  <!-- Thumbnail & Fullscreen Modal Overlay -->
   <div class="modal" id="gallery-modal">
-    <span class="modal-close" id="modal-close">&times;</span>
-    <button class="modal-nav modal-prev" id="modal-prev">&#10094;</button>
-    <img class="modal-content" id="modal-img" src="" alt="Project Photo">
-    <button class="modal-nav modal-next" id="modal-next">&#10095;</button>
-    <div class="modal-caption" id="modal-caption"></div>
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Project Gallery</div>
+      <span class="modal-close" id="modal-close">&times;</span>
+    </div>
+
+    <!-- View 1: Thumbnail Grid -->
+    <div class="thumb-grid-container" id="thumb-grid"></div>
+
+    <!-- View 2: Fullscreen Single Photo Viewer -->
+    <div class="fullscreen-viewer" id="fullscreen-viewer">
+      <button class="back-to-thumbs-btn" id="back-to-thumbs">← Back to Thumbnails</button>
+      <button class="modal-nav modal-prev" id="modal-prev">&#10094;</button>
+      <img class="modal-content-img" id="modal-img" src="" alt="Full Project Photo">
+      <button class="modal-nav modal-next" id="modal-next">&#10095;</button>
+      <div class="modal-caption" id="modal-caption"></div>
+    </div>
   </div>
 
   <script>
     const REPO_OWNER = "brandonong";
     const REPO_NAME = "design-portolio";
 
-    // Project configurations with fallback image lists
+    // Project configurations
     const PROJECTS = {
       edgedale: {
         folder: "hdb/133edgedale",
-        title: "Edgedale Plains",
+        title: "Edgedale Plains (HDB 5-Room)",
         fallbacks: [
           "0029InteriorKEN00735.jpg", "0030InteriorKEN00737.jpg", "0031InteriorKEN00738.jpg",
           "0032InteriorKEN00740.jpg", "0033InteriorKEN00741.jpg", "0034InteriorKEN00742.jpg",
@@ -879,8 +984,7 @@
       },
       brighthill: {
         folder: "condo/41brighthill",
-        title: "41 Bright Hill Drive",
-        // Sequence built from screenshot (_A749133 through _A749191)
+        title: "41 Bright Hill Drive (Condo)",
         fallbacks: (function() {
           const list = [];
           const numbers = [
@@ -903,13 +1007,16 @@
     let currentIndex = 0;
 
     const modal = document.getElementById('gallery-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const thumbGrid = document.getElementById('thumb-grid');
+    const fullscreenViewer = document.getElementById('fullscreen-viewer');
     const modalImg = document.getElementById('modal-img');
     const modalCaption = document.getElementById('modal-caption');
     const closeBtn = document.getElementById('modal-close');
+    const backBtn = document.getElementById('back-to-thumbs');
     const prevBtn = document.getElementById('modal-prev');
     const nextBtn = document.getElementById('modal-next');
 
-    // Fetch GitHub project images with fallback handling
     async function loadProjectGalleries() {
       for (const [key, config] of Object.entries(PROJECTS)) {
         const card = document.querySelector(`[data-project="${key}"]`);
@@ -942,41 +1049,73 @@
 
         if (countBadge) countBadge.textContent = `📷 ${config.gallery.length} Photos`;
         if (coverImg && config.gallery.length > 0) {
-          // Keep key cover photo if present, otherwise default to first image
           const preferredCover = config.gallery.find(img => img.name.includes("167")) || config.gallery[0];
           coverImg.src = preferredCover.src;
         }
 
-        // Click handler to launch gallery modal
         card.addEventListener('click', () => {
-          currentProjectKey = key;
-          currentIndex = 0;
-          updateModal();
-          modal.classList.add('active');
+          openThumbnailGrid(key);
         });
       }
     }
 
     loadProjectGalleries();
 
-    function updateModal() {
-      if (!currentProjectKey || !PROJECTS[currentProjectKey]) return;
-      const project = PROJECTS[currentProjectKey];
-      const activeGallery = project.gallery;
-      if (activeGallery.length === 0) return;
+    // Render Thumbnail Grid Mode
+    function openThumbnailGrid(projectKey) {
+      currentProjectKey = projectKey;
+      const project = PROJECTS[projectKey];
+      if (!project || project.gallery.length === 0) return;
 
-      modalImg.src = activeGallery[currentIndex].src;
-      modalCaption.textContent = `${project.title} — ${currentIndex + 1} of ${activeGallery.length}`;
+      modalTitle.textContent = `${project.title} (${project.gallery.length} Photos)`;
+      thumbGrid.innerHTML = '';
+
+      project.gallery.forEach((imgObj, index) => {
+        const thumbItem = document.createElement('div');
+        thumbItem.className = 'thumb-item';
+        thumbItem.innerHTML = `<img src="${imgObj.src}" alt="${imgObj.name}" loading="lazy">`;
+        
+        thumbItem.addEventListener('click', () => {
+          openFullscreenImage(index);
+        });
+
+        thumbGrid.appendChild(thumbItem);
+      });
+
+      thumbGrid.style.display = 'grid';
+      fullscreenViewer.classList.remove('active');
+      modal.classList.add('active');
     }
 
-    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+    // Render Fullscreen Single Image Mode
+    function openFullscreenImage(index) {
+      currentIndex = index;
+      const project = PROJECTS[currentProjectKey];
+      const activeGallery = project.gallery;
+
+      modalImg.src = activeGallery[currentIndex].src;
+      modalCaption.textContent = `${project.title} — Photo ${currentIndex + 1} of ${activeGallery.length}`;
+
+      thumbGrid.style.display = 'none';
+      fullscreenViewer.classList.add('active');
+    }
+
+    // Modal Action Listeners
+    backBtn.addEventListener('click', () => {
+      fullscreenViewer.classList.remove('active');
+      thumbGrid.style.display = 'grid';
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
 
     prevBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (!currentProjectKey) return;
       const gallery = PROJECTS[currentProjectKey].gallery;
       currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
-      updateModal();
+      openFullscreenImage(currentIndex);
     });
 
     nextBtn.addEventListener('click', (e) => {
@@ -984,7 +1123,7 @@
       if (!currentProjectKey) return;
       const gallery = PROJECTS[currentProjectKey].gallery;
       currentIndex = (currentIndex + 1) % gallery.length;
-      updateModal();
+      openFullscreenImage(currentIndex);
     });
 
     modal.addEventListener('click', (e) => {
