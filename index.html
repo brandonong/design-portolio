@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interior Design Studio | Portfolio</title>
+  <style>
+    :root {
+      --bg-primary: #0a0a0c;
+      --bg-surface: #141418;
+      --bg-card: #1c1c22;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f3f7;
+      --text-muted: #8e8e9d;
+      --accent-color: #d4af37;
+      --whatsapp-color: #25d366;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      padding: 2.5rem 0 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .header-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(37, 211, 102, 0.15);
+      color: var(--whatsapp-color);
+      border: 1px solid rgba(37, 211, 102, 0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition-fast);
+    }
+
+    .header-whatsapp:hover {
+      background: var(--whatsapp-color);
+      color: #000;
+    }
+
+    .filter-wrapper {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    
+    .filter-btn:hover {
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .filter-btn.active {
+      background: var(--accent-color);
+      color: #000;
+      border-color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2rem;
+      padding-bottom: 5rem;
+    }
+
+    .project-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: var(--transition-fast);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212, 175, 55, 0.4);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-media {
+      position: relative;
+      width: 100%;
+      height: 260px;
+      background-color: var(--bg-card);
+      overflow: hidden;
+    }
+    
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    
+    .project-card:hover .card-media img {
+      transform: scale(1.03);
+    }
+
+    .badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(10, 10, 12, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .gallery-count {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      background: rgba(10, 10, 12, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    
+    .card-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--text-main);
+    }
+    
+    .card-content .subtitle {
+      font-size: 0.875rem;
+      color: var(--accent-color);
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .card-content p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .specs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .specs-list span strong {
+      color: var(--text-main);
+    }
+
+    /* Floating WhatsApp Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: var(--whatsapp-color);
+      color: #ffffff;
+      border-radius: 50px;
+      padding: 0.85rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      z-index: 999;
+      transition: var(--transition-fast);
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
+    }
+
+    .whatsapp-icon {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    /* Lightbox Modal Gallery */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: none;
+      font-size: 2rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .modal-prev { left: 1.5rem; }
+    .modal-next { right: 1.5rem; }
+
+    .modal-caption {
+      margin-top: 1rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="header-top">
+        <div class="brand-title">Interior Design Studio</div>
+        <a href="https://wa.me/6597869046?text=Hi,%20I%20will%20like%20to%20make%20some%20enquiries." target="_blank" class="header-whatsapp">
+          💬 Contact via WhatsApp
+        </a>
+      </div>
+      
+      <!-- Property Category Filters -->
+      <div class="filter-wrapper">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="hdb">HDB</button>
+        <button class="filter-btn" data-filter="condo">Condo</button>
+        <button class="filter-btn" data-filter="landed">Landed</button>
+        <button class="filter-btn" data-filter="commercial">Commercial</button>
+      </div>
+    </header>
+
+    <main class="project-grid">
+      
+      <!-- 1. HDB Project (Edgedale Plains) -->
+      <article class="project-card" data-category="hdb" id="edgedale-card">
+        <div class="card-media">
+          <span class="badge">HDB 5-Room</span>
+          <img src="hdb/133edgedale/0029InteriorKEN00735.jpg" alt="Edgedale Plains Living Room Feature Wall">
+          <span class="gallery-count">📷 13 Photos</span>
+        </div>
+        <div class="card-content">
+          <h3>Edgedale Plains</h3>
+          <div class="subtitle">Contemporary Open-Plan Transformation</div>
+          <p>Full home renovation featuring a custom fluted acoustic TV wall, cove lighting, dry kitchen island, wet kitchen utility layout, study workstations, and luxury dark bathrooms.</p>
+          
+          <div class="specs-list">
+            <span><strong>Location:</strong> Edgedale Plains, Punggol</span>
+            <span><strong>Property:</strong> 5-Room HDB (Type B2)</span>
+            <span><strong>Gallery:</strong> Click card to view all 13 photos</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. Condo Project -->
+      <article class="project-card" data-category="condo">
+        <div class="card-media">
+          <span class="badge">Condo 3-Bed</span>
+          <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" alt="Orchard Boulevard Interior Design">
+        </div>
+        <div class="card-content">
+          <h3>Orchard Boulevard</h3>
+          <div class="subtitle">Modern Luxury Residence</div>
+          <p>Sleek metallic accents, marble wall paneling, and custom integrated ambient cove lighting across the entire open-concept living area.</p>
+          
+          <div class="specs-list">
+            <span><strong>Location:</strong> Central Region</span>
+            <span><strong>Property:</strong> 3-Bedroom Condo</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. Landed Project -->
+      <article class="project-card" data-category="landed">
+        <div class="card-media">
+          <span class="badge">Landed Semi-D</span>
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Bukit Timah Estate Interior Design">
+        </div>
+        <div class="card-content">
+          <h3>Bukit Timah Estate</h3>
+          <div class="subtitle">Contemporary Architectural Design</div>
+          <p>Multi-generational living setup featuring seamless indoor-outdoor spatial flow and high-ceiling architectural ceiling features.</p>
+          
+          <div class="specs-list">
+            <span><strong>Location:</strong> Bukit Timah</span>
+            <span><strong>Property:</strong> Semi-Detached House</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4. Commercial Project -->
+      <article class="project-card" data-category="commercial">
+        <div class="card-media">
+          <span class="badge">Commercial Retail</span>
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Raffles Place Office Space">
+        </div>
+        <div class="card-content">
+          <h3>Raffles Place</h3>
+          <div class="subtitle">Boutique Office Space</div>
+          <p>Ergonomic commercial layout planning, acoustic paneling, and custom corporate branding integration throughout meeting zones.</p>
+          
+          <div class="specs-list">
+            <span><strong>Location:</strong> CBD</span>
+            <span><strong>Property:</strong> Commercial Unit</span>
+          </div>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+  <!-- Persistent Floating WhatsApp Button -->
+  <a href="https://wa.me/6597869046?text=Hi,%20I%20will%20like%20to%20make%20some%20enquiries." target="_blank" class="whatsapp-float" aria-label="Contact via WhatsApp">
+    <svg class="whatsapp-icon" viewBox="0 0 24 24">
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.572-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+    </svg>
+    <span>WhatsApp Us</span>
+  </a>
+
+  <!-- Lightbox Gallery Modal -->
+  <div class="modal" id="gallery-modal">
+    <span class="modal-close" id="modal-close">&times;</span>
+    <button class="modal-nav modal-prev" id="modal-prev">&#10094;</button>
+    <img class="modal-content" id="modal-img" src="" alt="Project Photo">
+    <button class="modal-nav modal-next" id="modal-next">&#10095;</button>
+    <div class="modal-caption" id="modal-caption"></div>
+  </div>
+
+  <script>
+    const projectGallery = [
+      { src: "hdb/133edgedale/0029InteriorKEN00735.jpg", title: "Living Room - Fluted TV Feature Wall & Cove Lighting" },
+      { src: "hdb/133edgedale/0031InteriorKEN00738.jpg", title: "Living & Dining - Open Layout Overview" },
+      { src: "hdb/133edgedale/0036InteriorKEN00744.jpg", title: "Dry Kitchen - Extended Island Counter & Dining" },
+      { src: "hdb/133edgedale/0038InteriorKEN00746.jpg", title: "Wet Kitchen & Laundry - Utility Area Layout" },
+      { src: "hdb/133edgedale/0039InteriorKEN00747.jpg", title: "Wet Kitchen - Cooktop & Prep Counter Detail" },
+      { src: "hdb/133edgedale/0040InteriorKEN00749.jpg", title: "Guest Bathroom - Shower Enclosure & Circular Lighted Mirror" },
+      { src: "hdb/133edgedale/0041InteriorKEN00750.jpg", title: "Master Bathroom - Dark Marble Accent Tiles & Vanity" },
+      { src: "hdb/133edgedale/0042InteriorKEN00751.jpg", title: "Master Bathroom - Fluted Feature Wall & Basin" },
+      { src: "hdb/133edgedale/0043InteriorKEN00752.jpg", title: "Bedroom 1 - Built-in Study Workstation & Desk" },
+      { src: "hdb/133edgedale/0044InteriorKEN00753.jpg", title: "Bedroom 1 - Full-Height Wardrobe & Bed Setup" },
+      { src: "hdb/133edgedale/0045InteriorKEN00754.jpg", title: "Bedroom Overview - King Bed & Ceiling Fan" },
+      { src: "hdb/133edgedale/0046InteriorKEN00757.jpg", title: "Bedroom Workstation - Integrated Shelving & Storage" },
+      { src: "hdb/133edgedale/0047InteriorKEN00758.jpg", title: "Dining Feature Area - Accent Wall & Seating Setup" }
+    ];
+
+    let currentIndex = 0;
+
+    const modal = document.getElementById('gallery-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalCaption = document.getElementById('modal-caption');
+    const card = document.getElementById('edgedale-card');
+    const closeBtn = document.getElementById('modal-close');
+    const prevBtn = document.getElementById('modal-prev');
+    const nextBtn = document.getElementById('modal-next');
+
+    function updateModal(index) {
+      modalImg.src = projectGallery[index].src;
+      modalCaption.textContent = `${index + 1} of ${projectGallery.length}: ${projectGallery[index].title}`;
+    }
+
+    card.addEventListener('click', () => {
+      currentIndex = 0;
+      updateModal(currentIndex);
+      modal.classList.add('active');
+    });
+
+    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentIndex = (currentIndex - 1 + projectGallery.length) % projectGallery.length;
+      updateModal(currentIndex);
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentIndex = (currentIndex + 1) % projectGallery.length;
+      updateModal(currentIndex);
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+
+    // Property Category Filter Handling
+    const buttons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.project-card');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        cards.forEach(c => {
+          if (filter === 'all' || c.getAttribute('data-category') === filter) {
+            c.style.display = 'flex';
+          } else {
+            c.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
