@@ -3,250 +3,267 @@
   let currentProjectKey = null;
   let currentIndex = 0;
 
-  const modal = document.getElementById('gallery-modal');
-  const modalTitle = document.getElementById('modal-title');
-  const thumbGrid = document.getElementById('thumb-grid');
-  const fullscreenViewer = document.getElementById('fullscreen-viewer');
-  const modalImg = document.getElementById('modal-img');
-  const modalCaption = document.getElementById('modal-caption');
-  const closeBtn = document.getElementById('modal-close');
-  const backBtn = document.getElementById('back-to-thumbs');
-  const prevBtn = document.getElementById('modal-prev');
-  const nextBtn = document.getElementById('modal-next');
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('gallery-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const thumbGrid = document.getElementById('thumb-grid');
+    const fullscreenViewer = document.getElementById('fullscreen-viewer');
+    const modalImg = document.getElementById('modal-img');
+    const modalCaption = document.getElementById('modal-caption');
+    const closeBtn = document.getElementById('modal-close');
+    const backBtn = document.getElementById('back-to-thumbs');
+    const prevBtn = document.getElementById('modal-prev');
+    const nextBtn = document.getElementById('modal-next');
 
-  // Load the auto-generated JSON file
-  async function loadGalleryData() {
-    try {
-      const response = await fetch('./gallery.json');
-      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-      PROJECTS_DATA = await response.json();
-      
-      updatePortfolioGrid();
-    } catch (err) {
-      console.error("Failed to load gallery.json:", err);
+    // Load auto-generated JSON
+    async function loadGalleryData() {
+      try {
+        const response = await fetch('./gallery.json');
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        PROJECTS_DATA = await response.json();
+        
+        updatePortfolioGrid();
+      } catch (err) {
+        console.error("Failed to load gallery.json:", err);
+      }
     }
-  }
 
-  function updatePortfolioGrid() {
-    const cards = document.querySelectorAll('.project-card[data-project]');
+    function updatePortfolioGrid() {
+      const cards = document.querySelectorAll('.project-card[data-project]');
 
-    cards.forEach(card => {
-      const key = card.getAttribute('data-project');
-      const project = PROJECTS_DATA[key];
-      if (!project) return;
+      cards.forEach(card => {
+        const key = card.getAttribute('data-project');
+        const project = PROJECTS_DATA[key];
+        if (!project) return;
 
-      const countBadge = card.querySelector('.gallery-count');
-      const coverImg = card.querySelector('.card-cover');
-      const gallery = project.gallery || [];
+        const countBadge = card.querySelector('.gallery-count');
+        const coverImg = card.querySelector('.card-cover');
+        const gallery = project.gallery || [];
 
-      if (countBadge) {
-        countBadge.textContent = `📷 ${gallery.length} Photos`;
+        if (countBadge) {
+          countBadge.textContent = `📷 ${gallery.length} Photos`;
+        }
+
+        if (coverImg && gallery.length > 0) {
+          if (project.coverFile) {
+            const matched = gallery.find(item => item.name === project.coverFile);
+            coverImg.src = matched ? matched.src : gallery[0].src;
+          } else {
+            coverImg.src = gallery[0].src;
+          }
+        }
+
+        card.addEventListener('click', () => {
+          openThumbnailGrid(key);
+        });
+      });
+    }
+
+    function openThumbnailGrid(projectKey) {
+      currentProjectKey = projectKey;
+      const project = PROJECTS_DATA[projectKey];
+      if (!project || !project.gallery || project.gallery.length === 0) return;
+
+      if (modalTitle) modalTitle.textContent = `${project.title} (${project.gallery.length} Photos)`;
+      if (thumbGrid) {
+        thumbGrid.innerHTML = '';
+        project.gallery.forEach((imgObj, index) => {
+          const thumbItem = document.createElement('div');
+          thumbItem.className = 'thumb-item';
+          thumbItem.innerHTML = `<img src="${imgObj.src}" alt="${imgObj.name}" loading="lazy">`;
+          
+          thumbItem.addEventListener('click', () => {
+            openFullscreenImage(index);
+          });
+
+          thumbGrid.appendChild(thumbItem);
+        });
+        thumbGrid.style.display = 'grid';
       }
 
-      if (coverImg && gallery.length > 0) {
-        if (project.coverFile) {
-          const matched = gallery.find(item => item.name === project.coverFile);
-          coverImg.src = matched ? matched.src : gallery[0].src;
-        } else {
-          coverImg.src = gallery[0].src;
+      if (fullscreenViewer) fullscreenViewer.classList.remove('active');
+      if (modal) modal.classList.add('active');
+    }
+
+    function openFullscreenImage(index) {
+      currentIndex = index;
+      const project = PROJECTS_DATA[currentProjectKey];
+      const activeGallery = project.gallery;
+
+      if (modalImg) modalImg.src = activeGallery[currentIndex].src;
+      if (modalCaption) modalCaption.textContent = `${project.title} — Photo ${currentIndex + 1} of ${activeGallery.length}`;
+
+      if (thumbGrid) thumbGrid.style.display = 'none';
+      if (fullscreenViewer) fullscreenViewer.classList.add('active');
+    }
+
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        if (fullscreenViewer) fullscreenViewer.classList.remove('active');
+        if (thumbGrid) thumbGrid.style.display = 'grid';
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        if (modal) modal.classList.remove('active');
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!currentProjectKey || !PROJECTS_DATA[currentProjectKey]) return;
+        const gallery = PROJECTS_DATA[currentProjectKey].gallery;
+        currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
+        openFullscreenImage(currentIndex);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!currentProjectKey || !PROJECTS_DATA[currentProjectKey]) return;
+        const gallery = PROJECTS_DATA[currentProjectKey].gallery;
+        currentIndex = (currentIndex + 1) % gallery.length;
+        openFullscreenImage(currentIndex);
+      });
+    }
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+      });
+    }
+
+    // Filter Buttons
+    const buttons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.project-card');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+
+        cards.forEach(c => {
+          if (filter === 'all' || c.getAttribute('data-category') === filter) {
+            c.style.display = 'flex';
+          } else {
+            c.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Calculator Logic
+    const openCalcBtn = document.getElementById('open-calc-btn');
+    const calcSection = document.getElementById('calculator-section');
+
+    if (openCalcBtn && calcSection) {
+      openCalcBtn.addEventListener('click', () => {
+        calcSection.classList.toggle('active');
+        openCalcBtn.classList.toggle('active');
+        
+        if (calcSection.classList.contains('active')) {
+          calcSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
+      });
+    }
+
+    function initCalculator() {
+      const propBtns = document.querySelectorAll('#prop-types .calc-btn');
+      const finishBtns = document.querySelectorAll('#finish-levels .calc-btn');
+      const checkboxes = document.querySelectorAll('#scope-items input[type="checkbox"]');
+      const estDisplay = document.getElementById('est-display');
+      const waBtn = document.getElementById('calc-whatsapp-btn');
+
+      if (!estDisplay || !waBtn) return;
+
+      function calculateEstimate() {
+        let basePrice = 38000;
+        let selectedProp = "3-Room HDB";
+        propBtns.forEach(btn => {
+          if (btn.classList.contains('selected')) {
+            basePrice = parseInt(btn.getAttribute('data-base'));
+            selectedProp = btn.textContent.trim();
+          }
+        });
+
+        let scopeTotal = 0;
+        let selectedScopes = [];
+        checkboxes.forEach(cb => {
+          const parent = cb.parentElement;
+          if (cb.checked) {
+            parent.classList.add('selected');
+            scopeTotal += parseInt(cb.getAttribute('data-cost'));
+            selectedScopes.push(cb.value);
+          } else {
+            parent.classList.remove('selected');
+          }
+        });
+
+        let multiplier = 1.0;
+        let selectedFinish = "Essential";
+        finishBtns.forEach(btn => {
+          if (btn.classList.contains('selected')) {
+            multiplier = parseFloat(btn.getAttribute('data-multiplier'));
+            selectedFinish = btn.textContent.trim();
+          }
+        });
+
+        const totalMid = (basePrice + scopeTotal) * multiplier;
+        const minEstimate = Math.round((totalMid * 0.95) / 1000) * 1000;
+        const maxEstimate = Math.round((totalMid * 1.15) / 1000) * 1000;
+
+        const formattedMin = "$" + minEstimate.toLocaleString();
+        const formattedMax = "$" + maxEstimate.toLocaleString();
+        estDisplay.textContent = `${formattedMin} - ${formattedMax}`;
+
+        const scopeItemsText = selectedScopes.length > 0 
+          ? selectedScopes.map(item => `%0A - ${item}`).join('') 
+          : '%0A - Basic Space Planning';
+
+        const rawMessage = 
+          `Hi Irene, I calculated an interior renovation estimate on AP Design Studio website and would like to arrange a consultation!%0A%0A` +
+          `📋 *Project Summary:*%0A` +
+          `• Property Type: ${selectedProp}%0A` +
+          `• Finish Standard: ${selectedFinish}%0A` +
+          `• Estimated Budget: ${formattedMin} - ${formattedMax}%0A%0A` +
+          `🛠️ *Selected Scope of Work:*${scopeItemsText}%0A%0A` +
+          `-----------------------------------%0A` +
+          `📌 *Key Collection / Timeline:* [e.g. Q3 2026 / Ready Now]%0A` +
+          `📌 *Property Location / Estate:* [e.g. Tampines GreenCourt]%0A` +
+          `📎 *(I will attach my floor plan in the next message)*`;
+
+        waBtn.href = `https://wa.me/6597869046?text=${rawMessage}`;
       }
 
-      card.addEventListener('click', () => {
-        openThumbnailGrid(key);
-      });
-    });
-  }
-
-  function openThumbnailGrid(projectKey) {
-    currentProjectKey = projectKey;
-    const project = PROJECTS_DATA[projectKey];
-    if (!project || !project.gallery || project.gallery.length === 0) return;
-
-    modalTitle.textContent = `${project.title} (${project.gallery.length} Photos)`;
-    thumbGrid.innerHTML = '';
-
-    project.gallery.forEach((imgObj, index) => {
-      const thumbItem = document.createElement('div');
-      thumbItem.className = 'thumb-item';
-      thumbItem.innerHTML = `<img src="${imgObj.src}" alt="${imgObj.name}" loading="lazy">`;
-      
-      thumbItem.addEventListener('click', () => {
-        openFullscreenImage(index);
-      });
-
-      thumbGrid.appendChild(thumbItem);
-    });
-
-    thumbGrid.style.display = 'grid';
-    fullscreenViewer.classList.remove('active');
-    modal.classList.add('active');
-  }
-
-  function openFullscreenImage(index) {
-    currentIndex = index;
-    const project = PROJECTS_DATA[currentProjectKey];
-    const activeGallery = project.gallery;
-
-    modalImg.src = activeGallery[currentIndex].src;
-    modalCaption.textContent = `${project.title} — Photo ${currentIndex + 1} of ${activeGallery.length}`;
-
-    thumbGrid.style.display = 'none';
-    fullscreenViewer.classList.add('active');
-  }
-
-  backBtn.addEventListener('click', () => {
-    fullscreenViewer.classList.remove('active');
-    thumbGrid.style.display = 'grid';
-  });
-
-  closeBtn.addEventListener('click', () => {
-    modal.classList.remove('active');
-  });
-
-  prevBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (!currentProjectKey || !PROJECTS_DATA[currentProjectKey]) return;
-    const gallery = PROJECTS_DATA[currentProjectKey].gallery;
-    currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
-    openFullscreenImage(currentIndex);
-  });
-
-  nextBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (!currentProjectKey || !PROJECTS_DATA[currentProjectKey]) return;
-    const gallery = PROJECTS_DATA[currentProjectKey].gallery;
-    currentIndex = (currentIndex + 1) % gallery.length;
-    openFullscreenImage(currentIndex);
-  });
-
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.classList.remove('active');
-  });
-
-  // Filter Buttons Logic
-  const buttons = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.project-card');
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.getAttribute('data-filter');
-
-      cards.forEach(c => {
-        if (filter === 'all' || c.getAttribute('data-category') === filter) {
-          c.style.display = 'flex';
-        } else {
-          c.style.display = 'none';
-        }
-      });
-    });
-  });
-
-  // Calculator Logic
-  const openCalcBtn = document.getElementById('open-calc-btn');
-  const calcSection = document.getElementById('calculator-section');
-
-  openCalcBtn.addEventListener('click', () => {
-    calcSection.classList.toggle('active');
-    openCalcBtn.classList.toggle('active');
-    
-    if (calcSection.classList.contains('active')) {
-      calcSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  });
-
-  function initCalculator() {
-    const propBtns = document.querySelectorAll('#prop-types .calc-btn');
-    const finishBtns = document.querySelectorAll('#finish-levels .calc-btn');
-    const checkboxes = document.querySelectorAll('#scope-items input[type="checkbox"]');
-    const estDisplay = document.getElementById('est-display');
-    const waBtn = document.getElementById('calc-whatsapp-btn');
-
-    function calculateEstimate() {
-      let basePrice = 38000;
-      let selectedProp = "3-Room HDB";
       propBtns.forEach(btn => {
-        if (btn.classList.contains('selected')) {
-          basePrice = parseInt(btn.getAttribute('data-base'));
-          selectedProp = btn.textContent.trim();
-        }
+        btn.addEventListener('click', () => {
+          propBtns.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          calculateEstimate();
+        });
       });
 
-      let scopeTotal = 0;
-      let selectedScopes = [];
-      checkboxes.forEach(cb => {
-        const parent = cb.parentElement;
-        if (cb.checked) {
-          parent.classList.add('selected');
-          scopeTotal += parseInt(cb.getAttribute('data-cost'));
-          selectedScopes.push(cb.value);
-        } else {
-          parent.classList.remove('selected');
-        }
-      });
-
-      let multiplier = 1.0;
-      let selectedFinish = "Essential";
       finishBtns.forEach(btn => {
-        if (btn.classList.contains('selected')) {
-          multiplier = parseFloat(btn.getAttribute('data-multiplier'));
-          selectedFinish = btn.textContent.trim();
-        }
+        btn.addEventListener('click', () => {
+          finishBtns.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          calculateEstimate();
+        });
       });
 
-      const totalMid = (basePrice + scopeTotal) * multiplier;
-      const minEstimate = Math.round((totalMid * 0.95) / 1000) * 1000;
-      const maxEstimate = Math.round((totalMid * 1.15) / 1000) * 1000;
+      checkboxes.forEach(cb => {
+        cb.addEventListener('change', calculateEstimate);
+      });
 
-      const formattedMin = "$" + minEstimate.toLocaleString();
-      const formattedMax = "$" + maxEstimate.toLocaleString();
-      estDisplay.textContent = `${formattedMin} - ${formattedMax}`;
-
-      const scopeItemsText = selectedScopes.length > 0 
-        ? selectedScopes.map(item => `%0A - ${item}`).join('') 
-        : '%0A - Basic Space Planning';
-
-      const rawMessage = 
-        `Hi Irene, I calculated an interior renovation estimate on AP Design Studio website and would like to arrange a consultation!%0A%0A` +
-        `📋 *Project Summary:*%0A` +
-        `• Property Type: ${selectedProp}%0A` +
-        `• Finish Standard: ${selectedFinish}%0A` +
-        `• Estimated Budget: ${formattedMin} - ${formattedMax}%0A%0A` +
-        `🛠️ *Selected Scope of Work:*${scopeItemsText}%0A%0A` +
-        `-----------------------------------%0A` +
-        `📌 *Key Collection / Timeline:* [e.g. Q3 2026 / Ready Now]%0A` +
-        `📌 *Property Location / Estate:* [e.g. Tampines GreenCourt]%0A` +
-        `📎 *(I will attach my floor plan in the next message)*`;
-
-      waBtn.href = `https://wa.me/6597869046?text=${rawMessage}`;
+      calculateEstimate();
     }
 
-    propBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        propBtns.forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        calculateEstimate();
-      });
-    });
-
-    finishBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        finishBtns.forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        calculateEstimate();
-      });
-    });
-
-    checkboxes.forEach(cb => {
-      cb.addEventListener('change', calculateEstimate);
-    });
-
-    calculateEstimate();
-  }
-
-  // Initialize
-  loadGalleryData();
-  initCalculator();
+    // Run functions safely
+    loadGalleryData();
+    initCalculator();
+  });
 </script>
