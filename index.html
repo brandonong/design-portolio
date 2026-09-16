@@ -851,7 +851,27 @@
       <div class="section-title">Featured Portfolio</div>
 
       <div class="project-grid">
-        <!-- 1. HDB Project (Edgedale Plains) -->
+        <!-- 1. HDB Project (156B Bishan St) -->
+        <article class="project-card" data-category="hdb" data-project="bishan">
+          <div class="card-media">
+            <span class="badge">HDB BTO 4-Room</span>
+            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/156BbishanSt/0001InteriorKEN07760.jpg" alt="156B Bishan Street Interior Design" class="card-cover">
+            <span class="gallery-count">📷 Loading...</span>
+          </div>
+          <div class="card-content">
+            <h3>156B Bishan Street</h3>
+            <div class="subtitle">BTO Contemporary Interior Design</div>
+            <p>Modern spatial redesign for a BTO 4-room unit, focusing on streamlined carpentry, custom storage solutions, and maximized living room space.</p>
+            
+            <div class="specs-list">
+              <span><strong>Location:</strong> Bishan Street 13</span>
+              <span><strong>Property:</strong> 4-Room HDB BTO</span>
+              <span><strong>Gallery:</strong> Click card to view all 19 photos</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. HDB Project (Edgedale Plains) -->
         <article class="project-card" data-category="hdb" data-project="edgedale">
           <div class="card-media">
             <span class="badge">HDB 5-Room</span>
@@ -871,7 +891,7 @@
           </div>
         </article>
 
-        <!-- 2. Condo Project (41 Bright Hill Drive - 53 Photos) -->
+        <!-- 3. Condo Project (41 Bright Hill Drive) -->
         <article class="project-card" data-category="condo" data-project="brighthill">
           <div class="card-media">
             <span class="badge">Condo Residence</span>
@@ -891,7 +911,7 @@
           </div>
         </article>
 
-        <!-- 3. Landed Project -->
+        <!-- 4. Landed Project -->
         <article class="project-card" data-category="landed">
           <div class="card-media">
             <span class="badge">Landed Semi-D</span>
@@ -909,7 +929,7 @@
           </div>
         </article>
 
-        <!-- 4. Commercial Project -->
+        <!-- 5. Commercial Project -->
         <article class="project-card" data-category="commercial">
           <div class="card-media">
             <span class="badge">Commercial Retail</span>
@@ -968,6 +988,20 @@
 
     // Project configurations
     const PROJECTS = {
+      bishan: {
+        folder: "hdb/156BbishanSt",
+        title: "156B Bishan Street (HDB BTO 4-Room)",
+        fallbacks: [
+          "0001InteriorKEN07760.jpg", "0002InteriorKEN07761.jpg", "0003InteriorKEN07763.jpg",
+          "0004InteriorKEN07764.jpg", "0005InteriorKEN07765.jpg", "0006InteriorKEN07766.jpg",
+          "0007InteriorKEN07767.jpg", "0008InteriorKEN07768.jpg", "0009InteriorKEN07769.jpg",
+          "0010InteriorKEN07770.jpg", "0011InteriorKEN07771.jpg", "0012InteriorKEN07772.jpg",
+          "0013InteriorKEN07773.jpg", "0014InteriorKEN07775.jpg", "0015InteriorKEN07777.jpg",
+          "0016InteriorKEN07780.jpg", "0017InteriorKEN07785.jpg", "0018InteriorKEN07786.jpg",
+          "0019InteriorKEN07787.jpg"
+        ],
+        gallery: []
+      },
       edgedale: {
         folder: "hdb/133edgedale",
         title: "Edgedale Plains (HDB 5-Room)",
