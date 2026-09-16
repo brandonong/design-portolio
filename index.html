@@ -339,8 +339,8 @@
       <article class="project-card" data-category="hdb" id="edgedale-card">
         <div class="card-media">
           <span class="badge">HDB 5-Room</span>
-          <img src="hdb/133edgedale/0029InteriorKEN00735.jpg" alt="Edgedale Plains Living Room Feature Wall">
-          <span class="gallery-count">📷 13 Photos</span>
+          <img src="hdb/133edgedale/0029InteriorKEN00735.jpg" alt="Edgedale Plains Living Room Feature Wall" id="edgedale-cover">
+          <span class="gallery-count">📷 Loading...</span>
         </div>
         <div class="card-content">
           <h3>Edgedale Plains</h3>
@@ -350,7 +350,7 @@
           <div class="specs-list">
             <span><strong>Location:</strong> Edgedale Plains, Punggol</span>
             <span><strong>Property:</strong> 5-Room HDB (Type B2)</span>
-            <span><strong>Gallery:</strong> Click card to view all 13 photos</span>
+            <span><strong>Gallery:</strong> Click card to view all photos</span>
           </div>
         </div>
       </article>
@@ -430,38 +430,72 @@
   </div>
 
   <script>
-    const projectGallery = [
-      { src: "hdb/133edgedale/0029InteriorKEN00735.jpg", title: "Living Room - Fluted TV Feature Wall & Cove Lighting" },
-      { src: "hdb/133edgedale/0031InteriorKEN00738.jpg", title: "Living & Dining - Open Layout Overview" },
-      { src: "hdb/133edgedale/0036InteriorKEN00744.jpg", title: "Dry Kitchen - Extended Island Counter & Dining" },
-      { src: "hdb/133edgedale/0038InteriorKEN00746.jpg", title: "Wet Kitchen & Laundry - Utility Area Layout" },
-      { src: "hdb/133edgedale/0039InteriorKEN00747.jpg", title: "Wet Kitchen - Cooktop & Prep Counter Detail" },
-      { src: "hdb/133edgedale/0040InteriorKEN00749.jpg", title: "Guest Bathroom - Shower Enclosure & Circular Lighted Mirror" },
-      { src: "hdb/133edgedale/0041InteriorKEN00750.jpg", title: "Master Bathroom - Dark Marble Accent Tiles & Vanity" },
-      { src: "hdb/133edgedale/0042InteriorKEN00751.jpg", title: "Master Bathroom - Fluted Feature Wall & Basin" },
-      { src: "hdb/133edgedale/0043InteriorKEN00752.jpg", title: "Bedroom 1 - Built-in Study Workstation & Desk" },
-      { src: "hdb/133edgedale/0044InteriorKEN00753.jpg", title: "Bedroom 1 - Full-Height Wardrobe & Bed Setup" },
-      { src: "hdb/133edgedale/0045InteriorKEN00754.jpg", title: "Bedroom Overview - King Bed & Ceiling Fan" },
-      { src: "hdb/133edgedale/0046InteriorKEN00757.jpg", title: "Bedroom Workstation - Integrated Shelving & Storage" },
-      { src: "hdb/133edgedale/0047InteriorKEN00758.jpg", title: "Dining Feature Area - Accent Wall & Seating Setup" }
-    ];
+    // GitHub API configuration for dynamic image listing
+    const REPO_OWNER = "brandonong";
+    const REPO_NAME = "design-portolio";
+    const FOLDER_PATH = "hdb/133edgedale";
 
+    let projectGallery = [];
     let currentIndex = 0;
 
     const modal = document.getElementById('gallery-modal');
     const modalImg = document.getElementById('modal-img');
     const modalCaption = document.getElementById('modal-caption');
     const card = document.getElementById('edgedale-card');
+    const coverImg = document.getElementById('edgedale-cover');
     const closeBtn = document.getElementById('modal-close');
     const prevBtn = document.getElementById('modal-prev');
     const nextBtn = document.getElementById('modal-next');
+    const countBadge = card.querySelector('.gallery-count');
+
+    // Fetch folder contents dynamically from GitHub REST API
+    async function fetchGalleryImages() {
+      try {
+        const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FOLDER_PATH}`);
+        
+        if (!response.ok) {
+          throw new Error(`GitHub API HTTP error! status: ${response.status}`);
+        }
+
+        const files = await response.json();
+
+        // Filter and sort image files (.jpg, .jpeg, .png, .webp) regardless of case
+        projectGallery = files
+          .filter(file => file.type === 'file' && /\.(jpg|jpeg|png|webp)$/i.test(file.name))
+          .map((file, index) => ({
+            src: `${FOLDER_PATH}/${file.name}`,
+            name: file.name
+          }));
+
+        // Dynamically update card badge count
+        if (countBadge) {
+          countBadge.textContent = `📷 ${projectGallery.length} Photos`;
+        }
+
+        // Set card cover image to the first photo found if available
+        if (projectGallery.length > 0 && coverImg) {
+          coverImg.src = projectGallery[0].src;
+        }
+
+      } catch (error) {
+        console.error("Failed to load images dynamically:", error);
+        if (countBadge) {
+          countBadge.textContent = "📷 Gallery Available";
+        }
+      }
+    }
+
+    // Initialize API fetch on page load
+    fetchGalleryImages();
 
     function updateModal(index) {
+      if (projectGallery.length === 0) return;
       modalImg.src = projectGallery[index].src;
-      modalCaption.textContent = `${index + 1} of ${projectGallery.length}: ${projectGallery[index].title}`;
+      modalCaption.textContent = `${index + 1} of ${projectGallery.length}: ${projectGallery[index].name}`;
     }
 
     card.addEventListener('click', () => {
+      if (projectGallery.length === 0) return;
       currentIndex = 0;
       updateModal(currentIndex);
       modal.classList.add('active');
@@ -471,12 +505,14 @@
 
     prevBtn.addEventListener('click', (e) => {
       e.stopPropagation();
+      if (projectGallery.length === 0) return;
       currentIndex = (currentIndex - 1 + projectGallery.length) % projectGallery.length;
       updateModal(currentIndex);
     });
 
     nextBtn.addEventListener('click', (e) => {
       e.stopPropagation();
+      if (projectGallery.length === 0) return;
       currentIndex = (currentIndex + 1) % projectGallery.length;
       updateModal(currentIndex);
     });
