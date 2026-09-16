@@ -851,7 +851,27 @@
       <div class="section-title">Featured Portfolio</div>
 
       <div class="project-grid">
-        <!-- 1. HDB Project (156B Bishan St) -->
+        <!-- 1. HDB Project (168A Edgedale Fields) -->
+        <article class="project-card" data-category="hdb" data-project="edgedalefields">
+          <div class="card-media">
+            <span class="badge">HDB Resale 4-Room</span>
+            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/168/0001InteriorKEN00702.jpg" alt="168A Edgedale Fields Living Room Design" class="card-cover">
+            <span class="gallery-count">📷 Loading...</span>
+          </div>
+          <div class="card-content">
+            <h3>168A Edgedale Fields</h3>
+            <div class="subtitle">Warm Minimalist French-Modern HDB Resale</div>
+            <p>Thoughtfully transformed 4-room resale HDB featuring a bright cream aesthetic, faux mantel feature wall, cove ceiling illumination, fluted TV console, and tailored space optimization.</p>
+            
+            <div class="specs-list">
+              <span><strong>Location:</strong> Edgedale Fields, Punggol</span>
+              <span><strong>Property:</strong> 4-Room Resale HDB</span>
+              <span><strong>Gallery:</strong> Click card to view all 18 photos</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. HDB Project (156B Bishan St) -->
         <article class="project-card" data-category="hdb" data-project="bishan">
           <div class="card-media">
             <span class="badge">HDB BTO 4-Room</span>
@@ -871,7 +891,7 @@
           </div>
         </article>
 
-        <!-- 2. HDB Project (Edgedale Plains) -->
+        <!-- 3. HDB Project (Edgedale Plains) -->
         <article class="project-card" data-category="hdb" data-project="edgedale">
           <div class="card-media">
             <span class="badge">HDB 5-Room</span>
@@ -891,7 +911,7 @@
           </div>
         </article>
 
-        <!-- 3. Condo Project (41 Bright Hill Drive) -->
+        <!-- 4. Condo Project (41 Bright Hill Drive) -->
         <article class="project-card" data-category="condo" data-project="brighthill">
           <div class="card-media">
             <span class="badge">Condo Residence</span>
@@ -911,7 +931,7 @@
           </div>
         </article>
 
-        <!-- 4. Landed Project -->
+        <!-- 5. Landed Project -->
         <article class="project-card" data-category="landed">
           <div class="card-media">
             <span class="badge">Landed Semi-D</span>
@@ -929,7 +949,7 @@
           </div>
         </article>
 
-        <!-- 5. Commercial Project -->
+        <!-- 6. Commercial Project -->
         <article class="project-card" data-category="commercial">
           <div class="card-media">
             <span class="badge">Commercial Retail</span>
@@ -988,6 +1008,19 @@
 
     // Project configurations
     const PROJECTS = {
+      edgedalefields: {
+        folder: "hdb/168",
+        title: "168A Edgedale Fields (4-Room Resale HDB)",
+        fallbacks: [
+          "0001InteriorKEN00702.jpg", "0002InteriorKEN00703.jpg", "0003InteriorKEN00704.jpg",
+          "0004InteriorKEN00706.jpg", "0005InteriorKEN00707.jpg", "0006InteriorKEN00708.jpg",
+          "0007InteriorKEN00709.jpg", "0008InteriorKEN00710.jpg", "0009InteriorKEN00711.jpg",
+          "0010InteriorKEN00713.jpg", "0011InteriorKEN00714.jpg", "0012InteriorKEN00715.jpg",
+          "0013InteriorKEN00716.jpg", "0014InteriorKEN00717.jpg", "0015InteriorKEN00718.jpg",
+          "0016InteriorKEN00719.jpg", "0017InteriorKEN00720.jpg", "0018InteriorKEN00722.jpg"
+        ],
+        gallery: []
+      },
       bishan: {
         folder: "hdb/156BbishanSt",
         title: "156B Bishan Street (HDB BTO 4-Room)",
@@ -1083,8 +1116,7 @@
 
         if (countBadge) countBadge.textContent = `📷 ${config.gallery.length} Photos`;
         if (coverImg && config.gallery.length > 0) {
-          const preferredCover = config.gallery.find(img => img.name.includes("167")) || config.gallery[0];
-          coverImg.src = preferredCover.src;
+          coverImg.src = config.gallery[0].src;
         }
 
         card.addEventListener('click', () => {
