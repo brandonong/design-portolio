@@ -495,7 +495,7 @@
         <article class="project-card" data-category="hdb" id="edgedale-card">
           <div class="card-media">
             <span class="badge">HDB 5-Room</span>
-            <img src="hdb/133edgedale/0029InteriorKEN00735.jpg" alt="Edgedale Plains Living Room Feature Wall" id="edgedale-cover">
+            <img src="./hdb/133edgedale/0029InteriorKEN00735.jpg" alt="Edgedale Plains Living Room Feature Wall" id="edgedale-cover">
             <span class="gallery-count">📷 Loading...</span>
           </div>
           <div class="card-content">
@@ -619,11 +619,11 @@
 
         const files = await response.json();
 
-        // Filter and sort image files (.jpg, .jpeg, .png, .webp) regardless of case
+        // Filter and map with explicit relative path prefix ./
         projectGallery = files
           .filter(file => file.type === 'file' && /\.(jpg|jpeg|png|webp)$/i.test(file.name))
-          .map((file, index) => ({
-            src: `${FOLDER_PATH}/${file.name}`,
+          .map((file) => ({
+            src: `./${FOLDER_PATH}/${file.name}`,
             name: file.name
           }));
 
@@ -632,7 +632,7 @@
           countBadge.textContent = `📷 ${projectGallery.length} Photos`;
         }
 
-        // Set card cover image to the first photo found if available
+        // Set card cover image to the first photo found
         if (projectGallery.length > 0 && coverImg) {
           coverImg.src = projectGallery[0].src;
         }
