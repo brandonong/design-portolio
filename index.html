@@ -857,7 +857,7 @@
   </header>
 
   <section class="hero" id="top">
-    <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/condo/41brighthill/004108thSept-41BrightHillDriveInterior_A749177.jpg" alt="Living and dining area at 41 Bright Hill Drive">
+    <img src="https://cdn.jsdelivr.net/gh/brandonong/design-portolio@main/condo/41brighthill/004108thSept-41BrightHillDriveInterior_A749177.jpg" alt="Living and dining area at 41 Bright Hill Drive">
     <div class="hero-caption">
       <div class="shell">
         <h1>Projects</h1>
@@ -951,7 +951,7 @@
         <article class="project-card" data-category="hdb" data-project="edgedalefields" tabindex="0">
           <div class="card-media">
             <span class="badge">HDB Resale 4-Room</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/168/0001InteriorKEN00702.jpg" alt="168A Edgedale Plains living room" class="card-cover" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/brandonong/design-portolio@main/hdb/168/0001InteriorKEN00702.jpg" alt="168A Edgedale Plains living room" class="card-cover" loading="lazy">
             <span class="gallery-count">Loading…</span>
             <div class="card-veil"><span>View project</span></div>
           </div>
@@ -970,7 +970,7 @@
         <article class="project-card" data-category="hdb" data-project="bishan" tabindex="0">
           <div class="card-media">
             <span class="badge">HDB BTO 4-Room</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/156BbishanSt/0001InteriorKEN07760.jpg" alt="156B Bishan Street interior" class="card-cover" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/brandonong/design-portolio@main/hdb/156BbishanSt/0001InteriorKEN07760.jpg" alt="156B Bishan Street interior" class="card-cover" loading="lazy">
             <span class="gallery-count">Loading…</span>
             <div class="card-veil"><span>View project</span></div>
           </div>
@@ -989,7 +989,7 @@
         <article class="project-card" data-category="hdb" data-project="edgedale" tabindex="0">
           <div class="card-media">
             <span class="badge">HDB 5-Room</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/133edgedale/0029InteriorKEN00735.jpg" alt="133 Edgedale Plains feature wall" class="card-cover" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/brandonong/design-portolio@main/hdb/133edgedale/0029InteriorKEN00735.jpg" alt="133 Edgedale Plains feature wall" class="card-cover" loading="lazy">
             <span class="gallery-count">Loading…</span>
             <div class="card-veil"><span>View project</span></div>
           </div>
@@ -1008,7 +1008,7 @@
         <article class="project-card" data-category="condo" data-project="brighthill" tabindex="0">
           <div class="card-media">
             <span class="badge">Condominium</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/condo/41brighthill/004108thSept-41BrightHillDriveInterior_A749177.jpg" alt="41 Bright Hill Drive living and dining" class="card-cover" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/brandonong/design-portolio@main/condo/41brighthill/004108thSept-41BrightHillDriveInterior_A749177.jpg" alt="41 Bright Hill Drive living and dining" class="card-cover" loading="lazy">
             <span class="gallery-count">Loading…</span>
             <div class="card-veil"><span>View project</span></div>
           </div>
@@ -1027,7 +1027,7 @@
         <article class="project-card" data-category="condo" data-project="florence" tabindex="0">
           <div class="card-media">
             <span class="badge">Condominium</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/condo/florenceResidence/001618thOct-InteriorA7401429.jpg" alt="Florence Residences living room" class="card-cover" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/brandonong/design-portolio@main/condo/florenceResidence/001618thOct-InteriorA7401429.jpg" alt="Florence Residences living room" class="card-cover" loading="lazy">
             <span class="gallery-count">Loading…</span>
             <div class="card-veil"><span>View project</span></div>
           </div>
@@ -1084,7 +1084,7 @@
   <section class="studio" id="studio">
     <div class="shell studio-inner">
       <div class="studio-portrait">
-        <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/ireneKiew.jpeg" alt="Irene Kiew, lead interior designer and founder">
+        <img src="https://cdn.jsdelivr.net/gh/brandonong/design-portolio@main/ireneKiew.jpeg" alt="Irene Kiew, lead interior designer and founder">
       </div>
       <div>
         <div class="studio-name">Irene Kiew</div>
@@ -1163,6 +1163,19 @@
   <script>
     const REPO_OWNER = "brandonong";
     const REPO_NAME = "design-portolio";
+    const BRANCH = "main";
+
+    /* Where the photos are served from.
+       - jsDelivr CDN (default): fast, cached, no rate limit.
+       - If this page is hosted inside the same repo on GitHub Pages, you can
+         set IMAGE_BASE = "" instead and the images load as relative paths. */
+    const IMAGE_BASE = `https://cdn.jsdelivr.net/gh/${REPO_OWNER}/${REPO_NAME}@${BRANCH}/`;
+
+    /* One static file listing every photo per folder. Regenerate it with
+       make-manifest.sh whenever you add photos. No GitHub API calls at all. */
+    const MANIFEST_URL = "images.json";
+
+    const imgUrl = (folder, file) => `${IMAGE_BASE}${folder}/${file}`;
 
     const PROJECTS = {
       edgedalefields: {
@@ -1170,12 +1183,19 @@
         title: "168A Edgedale Plains (4-Room Resale HDB)",
         coverFile: null,
         fallbacks: [
-          "0001InteriorKEN00702.jpg", "0002InteriorKEN00703.jpg", "0003InteriorKEN00704.jpg",
-          "0004InteriorKEN00706.jpg", "0005InteriorKEN00707.jpg", "0006InteriorKEN00708.jpg",
-          "0007InteriorKEN00709.jpg", "0008InteriorKEN00710.jpg", "0009InteriorKEN00711.jpg",
-          "0010InteriorKEN00713.jpg", "0011InteriorKEN00714.jpg", "0012InteriorKEN00715.jpg",
-          "0013InteriorKEN00716.jpg", "0014InteriorKEN00717.jpg", "0015InteriorKEN00718.jpg",
-          "0016InteriorKEN00719.jpg", "0017InteriorKEN00720.jpg", "0018InteriorKEN00722.jpg"
+          "0001InteriorKEN00702.jpg", "0002InteriorKEN00703.jpg",
+          "0003InteriorKEN00704.jpg", "0004InteriorKEN00706.jpg",
+          "0005InteriorKEN00707.jpg", "0006InteriorKEN00708.jpg",
+          "0007InteriorKEN00709.jpg", "0008InteriorKEN00710.jpg",
+          "0009InteriorKEN00711.jpg", "0010InteriorKEN00713.jpg",
+          "0011InteriorKEN00714.jpg", "0012InteriorKEN00715.jpg",
+          "0013InteriorKEN00716.jpg", "0014InteriorKEN00717.jpg",
+          "0015InteriorKEN00718.jpg", "0016InteriorKEN00719.jpg",
+          "0017InteriorKEN00720.jpg", "0018InteriorKEN00722.jpg",
+          "0019InteriorKEN00723.jpg", "0020InteriorKEN00724.jpg",
+          "0021InteriorKEN00725.jpg", "0022InteriorKEN00726.jpg",
+          "0023InteriorKEN00728.jpg", "0024InteriorKEN00729.jpg",
+          "0026InteriorKEN00731.jpg", "0027InteriorKEN00732.jpg"
         ],
         gallery: []
       },
@@ -1184,13 +1204,19 @@
         title: "156B Bishan Street (HDB BTO 4-Room)",
         coverFile: null,
         fallbacks: [
-          "0001InteriorKEN07760.jpg", "0002InteriorKEN07761.jpg", "0003InteriorKEN07763.jpg",
-          "0004InteriorKEN07764.jpg", "0005InteriorKEN07765.jpg", "0006InteriorKEN07766.jpg",
-          "0007InteriorKEN07767.jpg", "0008InteriorKEN07768.jpg", "0009InteriorKEN07769.jpg",
-          "0010InteriorKEN07770.jpg", "0011InteriorKEN07771.jpg", "0012InteriorKEN07772.jpg",
-          "0013InteriorKEN07773.jpg", "0014InteriorKEN07775.jpg", "0015InteriorKEN07777.jpg",
-          "0016InteriorKEN07780.jpg", "0017InteriorKEN07785.jpg", "0018InteriorKEN07786.jpg",
-          "0019InteriorKEN07787.jpg"
+          "0001InteriorKEN07760.jpg", "0002InteriorKEN07761.jpg",
+          "0003InteriorKEN07763.jpg", "0004InteriorKEN07764.jpg",
+          "0005InteriorKEN07765.jpg", "0006InteriorKEN07766.jpg",
+          "0007InteriorKEN07767.jpg", "0008InteriorKEN07768.jpg",
+          "0009InteriorKEN07769.jpg", "0010InteriorKEN07770.jpg",
+          "0011InteriorKEN07771.jpg", "0012InteriorKEN07772.jpg",
+          "0013InteriorKEN07773.jpg", "0014InteriorKEN07775.jpg",
+          "0015InteriorKEN07777.jpg", "0016InteriorKEN07780.jpg",
+          "0017InteriorKEN07785.jpg", "0018InteriorKEN07786.jpg",
+          "0019InteriorKEN07787.jpg", "0020InteriorKEN07788.jpg",
+          "0021InteriorKEN07789.jpg", "0022InteriorKEN07790.jpg",
+          "0023InteriorKEN07792.jpg", "0024InteriorKEN07793.jpg",
+          "0025InteriorKEN07794.jpg"
         ],
         gallery: []
       },
@@ -1199,12 +1225,15 @@
         title: "133 Edgedale Plains (HDB 5-Room)",
         coverFile: null,
         fallbacks: [
-          "0029InteriorKEN00735.jpg", "0030InteriorKEN00737.jpg", "0031InteriorKEN00738.jpg",
-          "0032InteriorKEN00740.jpg", "0033InteriorKEN00741.jpg", "0034InteriorKEN00742.jpg",
-          "0035InteriorKEN00743.jpg", "0036InteriorKEN00744.jpg", "0037InteriorKEN00745.jpg",
-          "0038InteriorKEN00746.jpg", "0039InteriorKEN00747.jpg", "0040InteriorKEN00749.jpg",
-          "0041InteriorKEN00750.jpg", "0043InteriorKEN00752.jpg", "0044InteriorKEN00753.jpg",
-          "0045InteriorKEN00754.jpg", "0046InteriorKEN00757.jpg", "0047InteriorKEN00758.jpg",
+          "0029InteriorKEN00735.jpg", "0030InteriorKEN00737.jpg",
+          "0031InteriorKEN00738.jpg", "0032InteriorKEN00740.jpg",
+          "0033InteriorKEN00741.jpg", "0034InteriorKEN00742.jpg",
+          "0035InteriorKEN00743.jpg", "0036InteriorKEN00744.jpg",
+          "0037InteriorKEN00745.jpg", "0038InteriorKEN00746.jpg",
+          "0039InteriorKEN00747.jpg", "0040InteriorKEN00749.jpg",
+          "0041InteriorKEN00750.jpg", "0043InteriorKEN00752.jpg",
+          "0044InteriorKEN00753.jpg", "0045InteriorKEN00754.jpg",
+          "0046InteriorKEN00757.jpg", "0047InteriorKEN00758.jpg",
           "0048InteriorKEN00759.jpg"
         ],
         gallery: []
@@ -1213,20 +1242,35 @@
         folder: "condo/41brighthill",
         title: "41 Bright Hill Drive (Condo)",
         coverFile: "004108thSept-41BrightHillDriveInterior_A749177.jpg",
-        fallbacks: (function() {
-          const list = [];
-          const numbers = [
-            133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149,
-            151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167,
-            168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184,
-            185, 186, 187, 188, 189, 190, 191
-          ];
-          numbers.forEach((num, index) => {
-            const prefix = String(index + 1).padStart(4, '0');
-            list.push(`${prefix}08thSept-41BrightHillDriveInterior_A749${num}.jpg`);
-          });
-          return list;
-        })(),
+        fallbacks: [
+          "000108thSept-41BrightHillDriveInterior_A749133.jpg", "000208thSept-41BrightHillDriveInterior_A749134.jpg",
+          "000308thSept-41BrightHillDriveInterior_A749135.jpg", "000408thSept-41BrightHillDriveInterior_A749136.jpg",
+          "000508thSept-41BrightHillDriveInterior_A749137.jpg", "000608thSept-41BrightHillDriveInterior_A749138.jpg",
+          "000708thSept-41BrightHillDriveInterior_A749139.jpg", "000808thSept-41BrightHillDriveInterior_A749140.jpg",
+          "000908thSept-41BrightHillDriveInterior_A749141.jpg", "001008thSept-41BrightHillDriveInterior_A749142.jpg",
+          "001108thSept-41BrightHillDriveInterior_A749143.jpg", "001208thSept-41BrightHillDriveInterior_A749144.jpg",
+          "001308thSept-41BrightHillDriveInterior_A749145.jpg", "001408thSept-41BrightHillDriveInterior_A749146.jpg",
+          "001508thSept-41BrightHillDriveInterior_A749147.jpg", "001608thSept-41BrightHillDriveInterior_A749148.jpg",
+          "001708thSept-41BrightHillDriveInterior_A749149.jpg", "001808thSept-41BrightHillDriveInterior_A749151.jpg",
+          "001908thSept-41BrightHillDriveInterior_A749152.jpg", "002008thSept-41BrightHillDriveInterior_A749153.jpg",
+          "002108thSept-41BrightHillDriveInterior_A749154.jpg", "002208thSept-41BrightHillDriveInterior_A749155.jpg",
+          "002308thSept-41BrightHillDriveInterior_A749156.jpg", "002408thSept-41BrightHillDriveInterior_A749157.jpg",
+          "002508thSept-41BrightHillDriveInterior_A749158.jpg", "002608thSept-41BrightHillDriveInterior_A749160.jpg",
+          "002708thSept-41BrightHillDriveInterior_A749161.jpg", "002808thSept-41BrightHillDriveInterior_A749162.jpg",
+          "002908thSept-41BrightHillDriveInterior_A749163.jpg", "003008thSept-41BrightHillDriveInterior_A749165.jpg",
+          "003108thSept-41BrightHillDriveInterior_A749166.jpg", "003208thSept-41BrightHillDriveInterior_A749167.jpg",
+          "003308thSept-41BrightHillDriveInterior_A749168.jpg", "003408thSept-41BrightHillDriveInterior_A749170.jpg",
+          "003508thSept-41BrightHillDriveInterior_A749171.jpg", "003608thSept-41BrightHillDriveInterior_A749172.jpg",
+          "003708thSept-41BrightHillDriveInterior_A749173.jpg", "003808thSept-41BrightHillDriveInterior_A749174.jpg",
+          "003908thSept-41BrightHillDriveInterior_A749175.jpg", "004008thSept-41BrightHillDriveInterior_A749176.jpg",
+          "004108thSept-41BrightHillDriveInterior_A749177.jpg", "004208thSept-41BrightHillDriveInterior_A749178.jpg",
+          "004308thSept-41BrightHillDriveInterior_A749179.jpg", "004408thSept-41BrightHillDriveInterior_A749180.jpg",
+          "004508thSept-41BrightHillDriveInterior_A749181.jpg", "004608thSept-41BrightHillDriveInterior_A749182.jpg",
+          "004708thSept-41BrightHillDriveInterior_A749183.jpg", "004808thSept-41BrightHillDriveInterior_A749184.jpg",
+          "004908thSept-41BrightHillDriveInterior_A749185.jpg", "005008thSept-41BrightHillDriveInterior_A749186.jpg",
+          "005108thSept-41BrightHillDriveInterior_A749187.jpg", "005208thSept-41BrightHillDriveInterior_A749189.jpg",
+          "005308thSept-41BrightHillDriveInterior_A749191.jpg"
+        ],
         gallery: []
       },
       florence: {
@@ -1237,15 +1281,14 @@
           "000118thOct-InteriorA7401397.jpg", "000218thOct-InteriorA7401399.jpg",
           "000318thOct-InteriorA7401400.jpg", "000418thOct-InteriorA7401409.jpg",
           "000518thOct-InteriorA7401411.jpg", "000618thOct-InteriorA7401415.jpg",
-          "000718thOct-InteriorA7401416.jpg", "000818thOct-InteriorA7401417.jpg",
-          "000918thOct-InteriorA7401418.jpg", "001018thOct-InteriorA7401419.jpg",
-          "001118thOct-InteriorA7401420.jpg", "001218thOct-InteriorA7401421.jpg",
-          "001318thOct-InteriorA7401423.jpg", "001418thOct-InteriorA7401424.jpg",
-          "001518thOct-InteriorA7401427.jpg", "001618thOct-InteriorA7401429.jpg",
-          "001718thOct-InteriorA7401431.jpg", "001818thOct-InteriorA7401435.jpg",
-          "001918thOct-InteriorA7401436.jpg", "002018thOct-InteriorA7401437.jpg",
-          "002118thOct-InteriorA7401440.jpg", "002218thOct-InteriorA7401443.jpg",
-          "002318thOct-InteriorA7401445.jpg"
+          "000718thOct-InteriorA7401416.jpg", "000818thOct-InteriorA7401418.jpg",
+          "000918thOct-InteriorA7401421.jpg", "001018thOct-InteriorA7401422.jpg",
+          "001118thOct-InteriorA7401423.jpg", "001218thOct-InteriorA7401424.jpg",
+          "001318thOct-InteriorA7401426.jpg", "001418thOct-InteriorA7401427.jpg",
+          "001518thOct-InteriorA7401428.jpg", "001618thOct-InteriorA7401429.jpg",
+          "001718thOct-InteriorA7401431.jpg", "001818thOct-InteriorA7401432.jpg",
+          "001918thOct-InteriorA7401433.jpg", "002018thOct-InteriorA7401434.jpg",
+          "002118thOct-InteriorA7401435.jpg", "002218thOct-InteriorA7401436.jpg"
         ],
         gallery: []
       }
@@ -1265,7 +1308,20 @@
     const prevBtn = document.getElementById('modal-prev');
     const nextBtn = document.getElementById('modal-next');
 
+    async function loadManifest() {
+      try {
+        const res = await fetch(MANIFEST_URL, { cache: "default" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+      } catch (e) {
+        console.warn("images.json not found — using the built-in file lists.", e);
+        return null;
+      }
+    }
+
     async function loadProjectGalleries() {
+      const manifest = await loadManifest();
+
       for (const [key, config] of Object.entries(PROJECTS)) {
         const card = document.querySelector(`[data-project="${key}"]`);
         if (!card) continue;
@@ -1273,39 +1329,22 @@
         const countBadge = card.querySelector('.gallery-count');
         const coverImg = card.querySelector('.card-cover');
 
-        try {
-          // Dynamic API Fetching from GitHub repository
-          const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${config.folder}`);
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const names = (manifest && Array.isArray(manifest[config.folder]) && manifest[config.folder].length)
+          ? manifest[config.folder]
+          : config.fallbacks;
 
-          const files = await res.json();
-          const loadedFiles = files
-            .filter(f => f.type === 'file' && /\.(jpg|jpeg|png|webp)$/i.test(f.name))
-            .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
-            .map(f => ({ src: f.download_url, name: f.name }));
-
-          if (loadedFiles.length > 0) {
-            config.gallery = loadedFiles;
-          } else {
-            throw new Error("No image files returned");
-          }
-        } catch (e) {
-          console.warn(`Fallback active for project: ${key}`, e);
-          config.gallery = config.fallbacks.map(file => ({
-            src: `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${config.folder}/${file}`,
-            name: file
-          }));
-        }
+        config.gallery = names
+          .slice()
+          .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+          .map(file => ({ src: imgUrl(config.folder, file), name: file }));
 
         if (countBadge) countBadge.textContent = `${config.gallery.length} photos`;
 
         if (coverImg && config.gallery.length > 0) {
-          if (config.coverFile) {
-            const foundCover = config.gallery.find(item => item.name === config.coverFile);
-            coverImg.src = foundCover ? foundCover.src : `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${config.folder}/${config.coverFile}`;
-          } else {
-            coverImg.src = config.gallery[0].src;
-          }
+          const cover = config.coverFile
+            ? (config.gallery.find(item => item.name === config.coverFile) || config.gallery[0])
+            : config.gallery[0];
+          coverImg.src = cover.src;
         }
 
         card.addEventListener('click', () => {
