@@ -3,635 +3,720 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AP Design Studio Pte. Ltd. | Interior Design Portfolio</title>
+  <title>Projects | AP Design Studio Pte. Ltd. — Interior Design Singapore</title>
+  <meta name="description" content="Interior design and renovation projects in Singapore by AP Design Studio Pte. Ltd. HDB, condominium, landed and commercial spaces.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-primary: #0a0a0c;
-      --bg-surface: #141418;
-      --bg-card: #1c1c22;
-      --border-color: rgba(255, 255, 255, 0.08);
-      --text-main: #f3f3f7;
-      --text-muted: #8e8e9d;
-      --accent-color: #d4af37;
-      --whatsapp-color: #25d366;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      --paper: #ffffff;
+      --mist: #f2f1ee;
+      --ink: #191a1a;
+      --ink-soft: #6c6c68;
+      --line: #e2e0da;
+      --brass: #a8863c;
+      --whatsapp: #128c3e;
+      --font-display: "Jost", "Helvetica Neue", Arial, sans-serif;
+      --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --shell: 1440px;
+      --gutter: clamp(1.25rem, 5vw, 5rem);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
+    html { scroll-behavior: smooth; }
+
     body {
-      background-color: var(--bg-primary);
-      color: var(--text-main);
-      font-family: var(--font-sans);
-      line-height: 1.6;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
     }
 
-    .container {
-      max-width: 1200px;
+    img { display: block; max-width: 100%; }
+
+    a { color: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--brass);
+      outline-offset: 3px;
+    }
+
+    .shell {
+      max-width: var(--shell);
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding-left: var(--gutter);
+      padding-right: var(--gutter);
     }
 
-    header {
-      padding: 2.5rem 0 2rem;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 2.5rem;
+    /* ---------- Masthead ---------- */
+
+    .masthead {
+      position: sticky;
+      top: 0;
+      z-index: 800;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .masthead-inner {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
       gap: 1.5rem;
+      height: 74px;
     }
 
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    
-    .brand-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+    .wordmark {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--text-main);
-    }
-
-    .brand-title span {
-      color: var(--accent-color);
-    }
-
-    .header-tagline {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      font-style: italic;
-      letter-spacing: 0.02em;
-    }
-
-    .header-whatsapp {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(37, 211, 102, 0.15);
-      color: var(--whatsapp-color);
-      border: 1px solid rgba(37, 211, 102, 0.3);
-      padding: 0.53rem 1.1rem;
-      border-radius: 9999px;
-      font-size: 0.85rem;
-      font-weight: 600;
       text-decoration: none;
-      transition: var(--transition-fast);
+      white-space: nowrap;
     }
 
-    .header-whatsapp:hover {
-      background: var(--whatsapp-color);
-      color: #000;
+    .wordmark small {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      color: var(--ink-soft);
+      margin-top: 2px;
+      font-weight: 400;
     }
 
-    .filter-wrapper {
+    .masthead-nav {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 1rem;
+      gap: 2.25rem;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .masthead-nav a {
+      text-decoration: none;
+      color: var(--ink-soft);
+      transition: color 0.2s var(--ease);
+    }
+
+    .masthead-nav a:hover { color: var(--ink); }
+
+    .enquire-link {
+      border: 1px solid var(--ink);
+      padding: 0.6rem 1.35rem;
+      color: var(--ink) !important;
+      transition: background 0.25s var(--ease), color 0.25s var(--ease);
+    }
+
+    .enquire-link:hover {
+      background: var(--ink);
+      color: var(--paper) !important;
+    }
+
+    @media (max-width: 860px) {
+      .masthead-nav .nav-word { display: none; }
+      .masthead-inner { height: 64px; }
+    }
+
+    /* ---------- Hero ---------- */
+
+    .hero {
+      position: relative;
+      height: clamp(360px, 62vh, 620px);
+      overflow: hidden;
+      background: var(--mist);
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+    }
+
+    .hero-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: clamp(2rem, 6vw, 4.5rem);
+      z-index: 2;
+      color: #fff;
+    }
+
+    .hero-caption h1 {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(2.6rem, 8vw, 5.5rem);
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-caption p {
+      margin-top: 0.75rem;
+      max-width: 34ch;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    /* ---------- Intro ---------- */
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: clamp(2rem, 6vw, 5rem);
+      padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(2rem, 5vw, 3.5rem);
+      align-items: start;
+    }
+
+    .intro h2 {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+      line-height: 1.2;
+    }
+
+    .intro p {
+      color: var(--ink-soft);
+      max-width: 64ch;
+    }
+
+    .intro p + p { margin-top: 1rem; }
+
+    @media (max-width: 800px) {
+      .intro { grid-template-columns: 1fr; }
+    }
+
+    /* ---------- Filter bar ---------- */
+
+    .workbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
       flex-wrap: wrap;
-      margin-top: 0.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
     }
 
     .filter-group {
       display: flex;
-      gap: 0.5rem;
+      gap: 1.75rem;
       flex-wrap: wrap;
     }
-    
+
     .filter-btn {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      color: var(--text-muted);
-      padding: 0.5rem 1.25rem;
-      border-radius: 9999px;
-      font-size: 0.85rem;
-      font-weight: 500;
+      background: none;
+      border: 0;
+      padding: 0 0 4px;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
       cursor: pointer;
-      transition: var(--transition-fast);
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
     }
-    
-    .filter-btn:hover {
-      color: var(--text-main);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-    
+
+    .filter-btn:hover { color: var(--ink); }
+
     .filter-btn.active {
-      background: var(--accent-color);
-      color: #000;
-      border-color: var(--accent-color);
-      font-weight: 600;
+      color: var(--ink);
+      border-bottom-color: var(--ink);
     }
 
     .calc-trigger-btn-inline {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(20, 20, 24, 1) 100%);
-      border: 1px solid var(--accent-color);
-      color: var(--accent-color);
-      padding: 0.5rem 1.25rem;
-      border-radius: 9999px;
-      font-size: 0.85rem;
-      font-weight: 600;
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.65rem 1.25rem;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: var(--transition-fast);
-      white-space: nowrap;
+      transition: border-color 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease);
     }
 
-    .calc-trigger-btn-inline:hover, .calc-trigger-btn-inline.active {
-      background: var(--accent-color);
-      color: #000;
-      transform: translateY(-1px);
+    .calc-trigger-btn-inline:hover,
+    .calc-trigger-btn-inline.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
     }
 
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      color: var(--text-main);
+    /* ---------- Project grid ---------- */
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1rem, 2vw, 1.75rem);
+      padding-bottom: clamp(3.5rem, 8vw, 6rem);
+    }
+
+    @media (max-width: 1000px) { .project-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 620px)  { .project-grid { grid-template-columns: 1fr; } }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      background: none;
+      border: 0;
+    }
+
+    .card-media {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--mist);
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.9s var(--ease);
+    }
+
+    .project-card:hover .card-media img { transform: scale(1.05); }
+
+    .card-veil {
+      position: absolute;
+      inset: 0;
+      background: rgba(20, 20, 20, 0.45);
+      opacity: 0;
+      transition: opacity 0.4s var(--ease);
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      justify-content: center;
     }
 
-    .section-title::after {
-      content: "";
-      flex-grow: 1;
-      height: 1px;
-      background: var(--border-color);
+    .project-card:hover .card-veil,
+    .project-card:focus-within .card-veil { opacity: 1; }
+
+    .card-veil span {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.6);
+      padding-bottom: 4px;
     }
+
+    .badge {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.45rem 0.9rem;
+    }
+
+    .gallery-count {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink-soft);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      padding: 0.35rem 0.75rem;
+    }
+
+    .card-content { padding: 1.1rem 0 0; }
+
+    .card-content h3 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.15rem;
+      letter-spacing: 0.01em;
+    }
+
+    .card-content .subtitle {
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+      margin-top: 0.2rem;
+    }
+
+    .card-content p {
+      font-size: 0.875rem;
+      color: var(--ink-soft);
+      margin-top: 0.75rem;
+    }
+
+    .specs-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1.25rem;
+      margin-top: 0.9rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+    }
+
+    .specs-list span strong {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ---------- Designer ---------- */
+
+    .studio {
+      background: var(--mist);
+      padding: clamp(3rem, 8vw, 6rem) 0;
+    }
+
+    .studio-inner {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+    }
+
+    @media (max-width: 860px) {
+      .studio-inner { grid-template-columns: 1fr; }
+    }
+
+    .studio-portrait {
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: #ddd;
+    }
+
+    .studio-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(1);
+    }
+
+    .studio-name {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+      line-height: 1.1;
+    }
+
+    .studio-role {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin: 0.6rem 0 1.4rem;
+    }
+
+    .studio-body p {
+      color: var(--ink-soft);
+      max-width: 68ch;
+    }
+
+    .studio-body p + p { margin-top: 0.9rem; }
+
+    .studio-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 680px) {
+      .studio-highlights { grid-template-columns: 1fr; gap: 1rem; }
+    }
+
+    .highlight-item {
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+    }
+
+    .highlight-item strong {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+
+    /* ---------- Estimator ---------- */
 
     .calculator-section {
       display: none;
-      background: var(--bg-surface);
-      border: 1px solid var(--accent-color);
-      border-radius: 16px;
-      padding: 2rem;
-      margin-bottom: 3rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--line);
+      padding: clamp(1.5rem, 4vw, 2.75rem);
+      margin-bottom: clamp(2rem, 5vw, 3.5rem);
+      background: var(--paper);
     }
 
-    .calculator-section.active {
-      display: block;
-      animation: fadeIn 0.3s ease-in-out;
+    .calculator-section.active { display: block; }
+
+    .calc-heading {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.4rem;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
+    .calc-lede {
+      color: var(--ink-soft);
+      font-size: 0.875rem;
+      margin: 0.35rem 0 1.75rem;
+      max-width: 60ch;
     }
 
     .calc-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(1.5rem, 4vw, 3rem);
     }
 
-    @media (max-width: 900px) {
-      .calc-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+    @media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
 
-    .calc-group {
-      margin-bottom: 1.25rem;
-    }
+    .calc-group { margin-bottom: 1.5rem; }
 
     .calc-label {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text-main);
-      margin-bottom: 0.6rem;
       display: block;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 0.7rem;
     }
 
     .calc-options {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 0.6rem;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.5rem;
     }
 
     .calc-btn {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--text-muted);
-      padding: 0.65rem 0.5rem;
-      border-radius: 8px;
-      font-size: 0.825rem;
-      font-weight: 500;
-      cursor: pointer;
+      border: 1px solid var(--line);
+      padding: 0.7rem 0.6rem;
+      font-size: 0.85rem;
       text-align: center;
-      transition: var(--transition-fast);
+      cursor: pointer;
+      transition: border-color 0.2s var(--ease), background 0.2s var(--ease), color 0.2s var(--ease);
     }
 
-    .calc-btn:hover {
-      border-color: var(--accent-color);
-      color: var(--text-main);
-    }
+    .calc-btn:hover { border-color: var(--ink); }
 
     .calc-btn.selected {
-      background: rgba(212, 175, 55, 0.15);
-      border-color: var(--accent-color);
-      color: var(--accent-color);
-      font-weight: 600;
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
     }
 
     .calc-checkboxes {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
+      gap: 0.5rem;
     }
 
+    @media (max-width: 520px) { .calc-checkboxes { grid-template-columns: 1fr; } }
+
     .calc-check-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 0.65rem 0.75rem;
-      font-size: 0.825rem;
-      color: var(--text-muted);
+      border: 1px solid var(--line);
+      padding: 0.7rem 0.8rem;
+      font-size: 0.85rem;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      transition: var(--transition-fast);
+      gap: 0.55rem;
+      color: var(--ink-soft);
+      transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
     }
 
-    .calc-check-item input {
-      accent-color: var(--accent-color);
-      cursor: pointer;
-    }
+    .calc-check-item input { accent-color: var(--ink); cursor: pointer; }
 
     .calc-check-item.selected {
-      border-color: var(--accent-color);
-      color: var(--text-main);
+      border-color: var(--ink);
+      color: var(--ink);
     }
 
     .calc-summary-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.75rem;
+      background: var(--mist);
+      padding: clamp(1.25rem, 3vw, 2rem);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
+    .calc-summary-card h4 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .calc-summary-card .note {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      margin-top: 0.3rem;
+    }
+
     .estimate-price-box {
-      background: rgba(10, 10, 12, 0.6);
-      border: 1px dashed var(--accent-color);
-      border-radius: 8px;
-      padding: 1.25rem;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 1.5rem 0;
+      margin: 1.5rem 0;
       text-align: center;
-      margin: 1.25rem 0;
     }
 
     .estimate-label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.4rem;
+      color: var(--ink-soft);
+      margin-bottom: 0.5rem;
     }
 
     .estimate-value {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--accent-color);
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(1.5rem, 3.4vw, 2rem);
+      color: var(--ink);
     }
 
     .calc-cta-btn {
-      background: var(--whatsapp-color);
-      color: #000;
-      border: none;
-      border-radius: 9999px;
-      padding: 0.85rem 1.25rem;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+      background: var(--ink);
+      color: var(--paper);
       text-decoration: none;
-      transition: var(--transition-fast);
-    }
-
-    .calc-cta-btn:hover {
-      filter: brightness(1.1);
-      transform: translateY(-2px);
-    }
-
-    .designer-section {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 2.5rem;
-      margin-bottom: 4rem;
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 2.5rem;
-      align-items: center;
-    }
-
-    @media (max-width: 768px) {
-      .designer-section {
-        grid-template-columns: 1fr;
-        padding: 1.75rem;
-      }
-    }
-
-    .designer-avatar {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      border-radius: 12px;
-      overflow: hidden;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-    }
-
-    .designer-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-    }
-
-    .designer-info h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--text-main);
-      margin-bottom: 0.2rem;
-    }
-
-    .designer-info .designer-role {
-      font-size: 0.875rem;
-      color: var(--accent-color);
-      font-weight: 600;
-      letter-spacing: 0.05em;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin-bottom: 1rem;
+      padding: 1rem 1.25rem;
+      transition: background 0.25s var(--ease);
     }
 
-    .designer-info p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 1rem;
-    }
+    .calc-cta-btn:hover { background: var(--whatsapp); }
 
-    .designer-highlights {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin-top: 1.25rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid var(--border-color);
-    }
-
-    .highlight-item {
-      font-size: 0.85rem;
-      color: var(--text-main);
-    }
-
-    .highlight-item strong {
-      color: var(--accent-color);
-      display: block;
-      font-size: 1.1rem;
-    }
-
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 2rem;
-      margin-bottom: 4rem;
-    }
-
-    .project-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: var(--transition-fast);
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-    }
-    
-    .project-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(212, 175, 55, 0.4);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .card-media {
-      position: relative;
-      width: 100%;
-      height: 260px;
-      background-color: var(--bg-card);
-      overflow: hidden;
-    }
-    
-    .card-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    
-    .project-card:hover .card-media img {
-      transform: scale(1.03);
-    }
-
-    .badge {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      background: rgba(10, 10, 12, 0.8);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      font-size: 0.75rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .gallery-count {
-      position: absolute;
-      bottom: 1rem;
-      right: 1rem;
-      background: rgba(10, 10, 12, 0.8);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      font-size: 0.75rem;
-      padding: 0.25rem 0.6rem;
-      border-radius: 4px;
-    }
-
-    .card-content {
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-    
-    .card-content h3 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-      color: var(--text-main);
-    }
-    
-    .card-content .subtitle {
-      font-size: 0.875rem;
-      color: var(--accent-color);
-      margin-bottom: 0.75rem;
-      font-weight: 500;
-    }
-    
-    .card-content p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
-
-    .specs-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid var(--border-color);
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .specs-list span strong {
-      color: var(--text-main);
-    }
+    /* ---------- Floating contact ---------- */
 
     .whatsapp-float {
       position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background-color: var(--whatsapp-color);
-      color: #ffffff;
-      border-radius: 50px;
-      padding: 0.85rem 1.4rem;
+      bottom: 1.75rem;
+      right: 1.75rem;
+      z-index: 900;
+      background: var(--whatsapp);
+      color: #fff;
+      text-decoration: none;
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      z-index: 999;
-      transition: var(--transition-fast);
+      padding: 0.85rem 1.3rem;
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+      transition: transform 0.25s var(--ease);
     }
 
-    .whatsapp-float:hover {
-      transform: scale(1.05);
-      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
+    .whatsapp-float:hover { transform: translateY(-2px); }
+
+    .whatsapp-icon { width: 20px; height: 20px; fill: currentColor; }
+
+    @media (max-width: 520px) {
+      .whatsapp-float { bottom: 1rem; right: 1rem; padding: 0.8rem 1rem; }
+      .whatsapp-float span { display: none; }
     }
 
-    .whatsapp-icon {
-      width: 22px;
-      height: 22px;
-      fill: currentColor;
-    }
+    /* ---------- Gallery modal ---------- */
 
     .modal {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.94);
+      inset: 0;
+      background: rgba(255, 255, 255, 0.98);
       z-index: 1000;
-      padding: 1.5rem;
+      padding: 1.5rem clamp(1rem, 4vw, 3rem) 3rem;
       overflow-y: auto;
     }
 
-    .modal.active {
-      display: flex;
-      flex-direction: column;
-    }
+    .modal.active { display: flex; flex-direction: column; }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 1.75rem;
     }
 
     .modal-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text-main);
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
     }
 
     .modal-close {
-      color: var(--text-muted);
-      font-size: 2rem;
-      cursor: pointer;
+      font-size: 1.8rem;
       line-height: 1;
-      transition: var(--transition-fast);
+      cursor: pointer;
+      color: var(--ink-soft);
+      transition: color 0.2s var(--ease);
     }
 
-    .modal-close:hover {
-      color: var(--text-main);
-    }
+    .modal-close:hover { color: var(--ink); }
 
     .thumb-grid-container {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 0.75rem;
       width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     .thumb-item {
-      position: relative;
       aspect-ratio: 4 / 3;
-      border-radius: 8px;
       overflow: hidden;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
+      background: var(--mist);
       cursor: pointer;
-      transition: var(--transition-fast);
     }
 
     .thumb-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s ease;
+      transition: transform 0.6s var(--ease);
     }
 
-    .thumb-item:hover {
-      border-color: var(--accent-color);
-      transform: scale(1.03);
-    }
-
-    .thumb-item:hover img {
-      transform: scale(1.08);
-    }
+    .thumb-item:hover img { transform: scale(1.06); }
 
     .fullscreen-viewer {
       display: none;
@@ -642,33 +727,29 @@
       position: relative;
     }
 
-    .fullscreen-viewer.active {
-      display: flex;
-    }
+    .fullscreen-viewer.active { display: flex; }
 
     .back-to-thumbs-btn {
       position: absolute;
       top: 0;
       left: 0;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      font-size: 0.85rem;
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.6rem 1rem;
       cursor: pointer;
-      transition: var(--transition-fast);
+      transition: background 0.25s var(--ease), color 0.25s var(--ease);
     }
 
-    .back-to-thumbs-btn:hover {
-      background: var(--accent-color);
-      color: #000;
-    }
+    .back-to-thumbs-btn:hover { background: var(--ink); color: var(--paper); }
 
     .modal-content-img {
-      max-width: 85vw;
-      max-height: 75vh;
-      border-radius: 8px;
+      max-width: min(92vw, 1200px);
+      max-height: 76vh;
       object-fit: contain;
     }
 
@@ -676,79 +757,144 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      border: none;
-      font-size: 2rem;
-      padding: 0.6rem 1.1rem;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 1.4rem;
+      padding: 0.7rem 1rem;
       cursor: pointer;
-      border-radius: 6px;
-      transition: var(--transition-fast);
+      transition: background 0.25s var(--ease), color 0.25s var(--ease);
     }
 
-    .modal-nav:hover {
-      background: var(--accent-color);
-      color: #000;
-    }
+    .modal-nav:hover { background: var(--ink); color: var(--paper); }
 
-    .modal-prev { left: 1rem; }
-    .modal-next { right: 1rem; }
+    .modal-prev { left: 0; }
+    .modal-next { right: 0; }
 
     .modal-caption {
       margin-top: 1rem;
-      color: var(--text-muted);
-      font-size: 0.9rem;
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
     }
 
-    footer {
-      border-top: 1px solid var(--border-color);
-      padding: 2.5rem 0;
-      text-align: center;
-      color: var(--text-muted);
+    /* ---------- Footer ---------- */
+
+    .site-footer {
+      background: var(--ink);
+      color: rgba(255, 255, 255, 0.72);
+      padding: clamp(3rem, 7vw, 5rem) 0 2rem;
       font-size: 0.85rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    @media (max-width: 760px) {
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .footer-grid h4 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 0.9rem;
+    }
+
+    .footer-statement {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+      line-height: 1.3;
+      color: #fff;
+      max-width: 22ch;
+    }
+
+    .site-footer a { color: inherit; text-decoration: none; }
+    .site-footer a:hover { color: #fff; }
+
+    .footer-base {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding-top: 1.5rem;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <div class="header-top">
-        <div>
-          <div class="brand-title">AP Design Studio <span>Pte. Ltd.</span></div>
-          <div class="header-tagline">"Excellence in Spatial Planning & Space Utilization"</div>
-        </div>
-        <a href="https://wa.me/6597869046?text=Hi%20Irene,%20I%20would%20like%20to%20enquire%20about%20your%20interior%20design%20services." target="_blank" class="header-whatsapp">
-          💬 Contact Irene via WhatsApp
-        </a>
+  <header class="masthead">
+    <div class="shell masthead-inner">
+      <a class="wordmark" href="#top">
+        AP Design Studio
+        <small>Interior Design &amp; Renovation</small>
+      </a>
+      <nav class="masthead-nav">
+        <a class="nav-word" href="#projects">Projects</a>
+        <a class="nav-word" href="#studio">Studio</a>
+        <a class="enquire-link" href="https://wa.me/6597869046?text=Hi%20Irene,%20I%20would%20like%20to%20enquire%20about%20your%20interior%20design%20services." target="_blank" rel="noopener">Enquire</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/condo/41brighthill/004108thSept-41BrightHillDriveInterior_A749177.jpg" alt="Living and dining area at 41 Bright Hill Drive">
+    <div class="hero-caption">
+      <div class="shell">
+        <h1>Projects</h1>
+        <p>Homes and workspaces across Singapore, planned around how people actually live in them.</p>
       </div>
-      
-      <div class="filter-wrapper">
+    </div>
+  </section>
+
+  <div class="shell">
+    <section class="intro">
+      <h2>Excellence in spatial planning and space utilisation</h2>
+      <div>
+        <p>Every project starts with the floor plan and ends with the handover. In between we work through layout, carpentry, materials and site supervision so the finished home holds up to daily use, not just to photographs.</p>
+        <p>Browse the work below by property type. Open any project to see the full photo set, from living and dining through to kitchen, bathrooms and storage detail.</p>
+      </div>
+    </section>
+
+    <main id="projects">
+      <div class="workbar">
         <div class="filter-group">
-          <button class="filter-btn active" data-filter="all">All Projects</button>
+          <button class="filter-btn active" data-filter="all">All</button>
           <button class="filter-btn" data-filter="hdb">HDB</button>
           <button class="filter-btn" data-filter="condo">Condo</button>
           <button class="filter-btn" data-filter="landed">Landed</button>
           <button class="filter-btn" data-filter="commercial">Commercial</button>
         </div>
-
-        <button id="open-calc-btn" class="calc-trigger-btn-inline">
-          🧮 Estimate Renovation Budget
-        </button>
+        <button id="open-calc-btn" class="calc-trigger-btn-inline">Estimate your budget</button>
       </div>
-    </header>
 
-    <main>
       <section class="calculator-section" id="calculator-section">
-        <div class="section-title" style="margin-bottom: 0.5rem;">Interactive Renovation Estimator</div>
-        <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
-          Select your property type and scope of work below to generate an estimated budget range.
-        </p>
+        <h2 class="calc-heading">Renovation budget estimator</h2>
+        <p class="calc-lede">Pick your property type and scope of work to see an indicative range, then send the breakdown over on WhatsApp.</p>
 
         <div class="calc-grid">
           <div>
             <div class="calc-group">
-              <label class="calc-label">1. Select Property Type</label>
+              <label class="calc-label">Property type</label>
               <div class="calc-options" id="prop-types">
                 <div class="calc-btn selected" data-base="38000">3-Room HDB</div>
                 <div class="calc-btn" data-base="48000">4-Room HDB</div>
@@ -758,25 +904,25 @@
             </div>
 
             <div class="calc-group">
-              <label class="calc-label">2. Select Scope of Work</label>
+              <label class="calc-label">Scope of work</label>
               <div class="calc-checkboxes" id="scope-items">
                 <label class="calc-check-item selected">
-                  <input type="checkbox" value="Custom Carpentry & Storage" data-cost="12000" checked> Custom Carpentry
+                  <input type="checkbox" value="Custom Carpentry &amp; Storage" data-cost="12000" checked> Custom carpentry
                 </label>
                 <label class="calc-check-item selected">
-                  <input type="checkbox" value="Kitchen Overhaul & Cabinets" data-cost="9000" checked> Kitchen Renovation
+                  <input type="checkbox" value="Kitchen Overhaul &amp; Cabinets" data-cost="9000" checked> Kitchen renovation
                 </label>
                 <label class="calc-check-item selected">
-                  <input type="checkbox" value="2 Bathrooms Tiling & Sanitary" data-cost="8000" checked> Bathroom Tiling
+                  <input type="checkbox" value="2 Bathrooms Tiling &amp; Sanitary" data-cost="8000" checked> Bathroom tiling
                 </label>
                 <label class="calc-check-item">
-                  <input type="checkbox" value="Hacking & Masonry Works" data-cost="4500"> Hacking & Tiling
+                  <input type="checkbox" value="Hacking &amp; Masonry Works" data-cost="4500"> Hacking &amp; masonry
                 </label>
               </div>
             </div>
 
             <div class="calc-group">
-              <label class="calc-label">3. Design & Material Standard</label>
+              <label class="calc-label">Design &amp; material standard</label>
               <div class="calc-options" id="finish-levels">
                 <div class="calc-btn selected" data-multiplier="1.0">Essential</div>
                 <div class="calc-btn" data-multiplier="1.25">Premium Custom</div>
@@ -786,220 +932,230 @@
 
           <div class="calc-summary-card">
             <div>
-              <h4 style="font-size: 1.05rem; color: var(--text-main);">Estimated Renovation Budget</h4>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
-                Based on current Singapore market benchmarks for spatial planning, masonry, and carpentry.
-              </p>
+              <h4>Indicative budget</h4>
+              <p class="note">Based on current Singapore benchmarks for spatial planning, masonry and carpentry. Final pricing follows a site visit.</p>
 
               <div class="estimate-price-box">
-                <div class="estimate-label">Estimated Range</div>
+                <div class="estimate-label">Estimated range</div>
                 <div class="estimate-value" id="est-display">$38,000 - $44,000</div>
               </div>
             </div>
 
-            <a id="calc-whatsapp-btn" href="#" target="_blank" class="calc-cta-btn">
-              💬 Send Breakdown to Irene on WhatsApp
-            </a>
+            <a id="calc-whatsapp-btn" href="#" target="_blank" rel="noopener" class="calc-cta-btn">Send breakdown to Irene</a>
           </div>
         </div>
       </section>
-
-      <section class="designer-section">
-        <div class="designer-avatar">
-          <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/ireneKiew.jpeg" alt="Irene Kiew - Lead Interior Designer & Founder">
-        </div>
-        <div class="designer-info">
-          <h3>Irene Kiew</h3>
-          <div class="designer-role">Lead Interior Designer & Founder</div>
-          <p>
-            At <strong>AP Design Studio Pte. Ltd.</strong>, we firmly believe that great interior design lies in spatial excellence and smart utilization of space. Every square foot should serve a harmonized balance between practical functionality and aesthetic elegance.
-          </p>
-          <p>
-            With years of hands-on expertise managing complex Singapore residential and commercial transformations, Irene Kiew works closely with homeowners from initial space planning to final handover. Her approach centers on tailored, client-focused layouts, quality workmanship, and seamless execution.
-          </p>
-          <div class="designer-highlights">
-            <div class="highlight-item">
-              <strong>Space Optimization</strong>
-              Custom carpentry & layout planning
-            </div>
-            <div class="highlight-item">
-              <strong>End-to-End Service</strong>
-              Design, sourcing & site supervision
-            </div>
-            <div class="highlight-item">
-              <strong>Bespoke Solutions</strong>
-              HDB, Condo, Landed & Commercial
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="section-title">Featured Portfolio</div>
 
       <div class="project-grid">
-        <!-- 1. HDB Project (168A Edgedale Plains) -->
-        <article class="project-card" data-category="hdb" data-project="edgedalefields">
+        <!-- 1. HDB — 168A Edgedale Plains -->
+        <article class="project-card" data-category="hdb" data-project="edgedalefields" tabindex="0">
           <div class="card-media">
             <span class="badge">HDB Resale 4-Room</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/168/0001InteriorKEN00702.jpg" alt="168A Edgedale Plains Living Room Design" class="card-cover">
-            <span class="gallery-count">📷 Loading...</span>
+            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/168/0001InteriorKEN00702.jpg" alt="168A Edgedale Plains living room" class="card-cover" loading="lazy">
+            <span class="gallery-count">Loading…</span>
+            <div class="card-veil"><span>View project</span></div>
           </div>
           <div class="card-content">
             <h3>168A Edgedale Plains</h3>
-            <div class="subtitle">Warm Minimalist French-Modern HDB Resale</div>
-            <p>Thoughtfully transformed 4-room resale HDB featuring a bright cream aesthetic, faux mantel feature wall, cove ceiling illumination, fluted TV console, and tailored space optimization.</p>
-            
+            <div class="subtitle">Warm minimalist French-modern resale</div>
+            <p>A 4-room resale reworked around a bright cream palette, faux mantel feature wall, cove ceiling lighting and a fluted TV console.</p>
             <div class="specs-list">
-              <span><strong>Location:</strong> Edgedale Plains, Punggol</span>
-              <span><strong>Property:</strong> 4-Room Resale HDB</span>
-              <span><strong>Gallery:</strong> Click card to view all 18 photos</span>
+              <span><strong>Punggol</strong></span>
+              <span>4-Room Resale HDB</span>
             </div>
           </div>
         </article>
 
-        <!-- 2. HDB Project (156B Bishan St) -->
-        <article class="project-card" data-category="hdb" data-project="bishan">
+        <!-- 2. HDB — 156B Bishan Street -->
+        <article class="project-card" data-category="hdb" data-project="bishan" tabindex="0">
           <div class="card-media">
             <span class="badge">HDB BTO 4-Room</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/156BbishanSt/0001InteriorKEN07760.jpg" alt="156B Bishan Street Interior Design" class="card-cover">
-            <span class="gallery-count">📷 Loading...</span>
+            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/156BbishanSt/0001InteriorKEN07760.jpg" alt="156B Bishan Street interior" class="card-cover" loading="lazy">
+            <span class="gallery-count">Loading…</span>
+            <div class="card-veil"><span>View project</span></div>
           </div>
           <div class="card-content">
             <h3>156B Bishan Street</h3>
-            <div class="subtitle">BTO Contemporary Interior Design</div>
-            <p>Modern spatial redesign for a BTO 4-room unit, focusing on streamlined carpentry, custom storage solutions, and maximized living room space.</p>
-            
+            <div class="subtitle">Contemporary BTO interior</div>
+            <p>Streamlined carpentry and custom storage for a BTO 4-room, keeping the living room open and the circulation clear.</p>
             <div class="specs-list">
-              <span><strong>Location:</strong> Bishan Street 13</span>
-              <span><strong>Property:</strong> 4-Room HDB BTO</span>
-              <span><strong>Gallery:</strong> Click card to view all 19 photos</span>
+              <span><strong>Bishan Street 13</strong></span>
+              <span>4-Room HDB BTO</span>
             </div>
           </div>
         </article>
 
-        <!-- 3. HDB Project (Edgedale Plains 5-Room) -->
-        <article class="project-card" data-category="hdb" data-project="edgedale">
+        <!-- 3. HDB — 133 Edgedale Plains -->
+        <article class="project-card" data-category="hdb" data-project="edgedale" tabindex="0">
           <div class="card-media">
             <span class="badge">HDB 5-Room</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/133edgedale/0029InteriorKEN00735.jpg" alt="Edgedale Plains Living Room Feature Wall" class="card-cover">
-            <span class="gallery-count">📷 Loading...</span>
+            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/hdb/133edgedale/0029InteriorKEN00735.jpg" alt="133 Edgedale Plains feature wall" class="card-cover" loading="lazy">
+            <span class="gallery-count">Loading…</span>
+            <div class="card-veil"><span>View project</span></div>
           </div>
           <div class="card-content">
             <h3>133 Edgedale Plains</h3>
-            <div class="subtitle">Contemporary Open-Plan Transformation</div>
-            <p>Full home renovation featuring a custom fluted acoustic TV wall, cove lighting, dry kitchen island, wet kitchen utility layout, study workstations, and luxury dark bathrooms.</p>
-            
+            <div class="subtitle">Open-plan transformation</div>
+            <p>Fluted acoustic TV wall, cove lighting, dry kitchen island with wet kitchen utility, study workstations and dark-toned bathrooms.</p>
             <div class="specs-list">
-              <span><strong>Location:</strong> Edgedale Plains, Punggol</span>
-              <span><strong>Property:</strong> 5-Room HDB (Type B2)</span>
-              <span><strong>Gallery:</strong> Click card to view all photos</span>
+              <span><strong>Punggol</strong></span>
+              <span>5-Room HDB (Type B2)</span>
             </div>
           </div>
         </article>
 
-        <!-- 4. Condo Project (41 Bright Hill Drive) -->
-        <article class="project-card" data-category="condo" data-project="brighthill">
+        <!-- 4. Condo — 41 Bright Hill Drive -->
+        <article class="project-card" data-category="condo" data-project="brighthill" tabindex="0">
           <div class="card-media">
-            <span class="badge">Condo Residence</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/condo/41brighthill/004108thSept-41BrightHillDriveInterior_A749177.jpg" alt="41 Bright Hill Drive Living & Dining Area" class="card-cover">
-            <span class="gallery-count">📷 Loading...</span>
+            <span class="badge">Condominium</span>
+            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/condo/41brighthill/004108thSept-41BrightHillDriveInterior_A749177.jpg" alt="41 Bright Hill Drive living and dining" class="card-cover" loading="lazy">
+            <span class="gallery-count">Loading…</span>
+            <div class="card-veil"><span>View project</span></div>
           </div>
           <div class="card-content">
             <h3>41 Bright Hill Drive</h3>
-            <div class="subtitle">Modern Slate & Navy Luxury Interior</div>
-            <p>Bespoke condominium transformation featuring a full-height slate TV feature wall with concealed warm strip lighting, integrated glass display cabinet, open-concept island dining with marble countertops, deep navy accents, and warm oak flooring.</p>
-            
+            <div class="subtitle">Slate and navy, warm oak floors</div>
+            <p>Full-height slate feature wall with concealed strip lighting, integrated glass display cabinet and an open island dining in marble.</p>
             <div class="specs-list">
-              <span><strong>Location:</strong> Bright Hill Drive, Bishan / Thomson</span>
-              <span><strong>Property:</strong> Condominium Residence</span>
-              <span><strong>Gallery:</strong> Click card to view all 53 photos</span>
+              <span><strong>Bishan / Thomson</strong></span>
+              <span>Condominium</span>
             </div>
           </div>
         </article>
 
-        <!-- 5. Condo Project (Florence Residences) -->
-        <article class="project-card" data-category="condo" data-project="florence">
+        <!-- 5. Condo — Florence Residences -->
+        <article class="project-card" data-category="condo" data-project="florence" tabindex="0">
           <div class="card-media">
-            <span class="badge">Condo Residence</span>
-            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/condo/florenceResidence/001618thOct-InteriorA7401429.jpg" alt="Florence Residences Living Room Interior Design" class="card-cover">
-            <span class="gallery-count">📷 Loading...</span>
+            <span class="badge">Condominium</span>
+            <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/condo/florenceResidence/001618thOct-InteriorA7401429.jpg" alt="Florence Residences living room" class="card-cover" loading="lazy">
+            <span class="gallery-count">Loading…</span>
+            <div class="card-veil"><span>View project</span></div>
           </div>
           <div class="card-content">
             <h3>Florence Residences</h3>
-            <div class="subtitle">Contemporary Warm & Royal Blue Elegance</div>
-            <p>Refined condo unit transformation featuring customized warm wood cabinetry, warm ambient cove lighting, built-in banquet dining nook, soft-toned privacy curtains, and deep blue accent seating.</p>
-            
+            <div class="subtitle">Warm timber with royal blue</div>
+            <p>Custom warm wood cabinetry, ambient cove lighting, a built-in banquette dining nook and deep blue accent seating.</p>
             <div class="specs-list">
-              <span><strong>Location:</strong> Hougang Avenue 2</span>
-              <span><strong>Property:</strong> Condominium Residence</span>
-              <span><strong>Gallery:</strong> Click card to view full photo gallery</span>
+              <span><strong>Hougang Avenue 2</strong></span>
+              <span>Condominium</span>
             </div>
           </div>
         </article>
 
-        <!-- 6. Landed Project -->
+        <!-- 6. Landed -->
         <article class="project-card" data-category="landed">
           <div class="card-media">
             <span class="badge">Landed Semi-D</span>
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Bukit Timah Estate Interior Design">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Bukit Timah semi-detached interior" loading="lazy">
+            <div class="card-veil"><span>Coming soon</span></div>
           </div>
           <div class="card-content">
             <h3>Bukit Timah Estate</h3>
-            <div class="subtitle">Contemporary Architectural Design</div>
-            <p>Multi-generational living setup featuring seamless indoor-outdoor spatial flow and high-ceiling architectural ceiling features.</p>
-            
+            <div class="subtitle">Contemporary architectural interior</div>
+            <p>Multi-generational layout with indoor-outdoor flow and high-ceiling architectural features.</p>
             <div class="specs-list">
-              <span><strong>Location:</strong> Bukit Timah</span>
-              <span><strong>Property:</strong> Semi-Detached House</span>
+              <span><strong>Bukit Timah</strong></span>
+              <span>Semi-Detached</span>
             </div>
           </div>
         </article>
 
-        <!-- 7. Commercial Project -->
+        <!-- 7. Commercial -->
         <article class="project-card" data-category="commercial">
           <div class="card-media">
-            <span class="badge">Commercial Retail</span>
-            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Raffles Place Office Space">
+            <span class="badge">Commercial</span>
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Raffles Place boutique office" loading="lazy">
+            <div class="card-veil"><span>Coming soon</span></div>
           </div>
           <div class="card-content">
             <h3>Raffles Place</h3>
-            <div class="subtitle">Boutique Office Space</div>
-            <p>Ergonomic commercial layout planning, acoustic paneling, and custom corporate branding integration throughout meeting zones.</p>
-            
+            <div class="subtitle">Boutique office space</div>
+            <p>Ergonomic layout planning, acoustic paneling and corporate branding built into the meeting zones.</p>
             <div class="specs-list">
-              <span><strong>Location:</strong> CBD</span>
-              <span><strong>Property:</strong> Commercial Unit</span>
+              <span><strong>CBD</strong></span>
+              <span>Commercial Unit</span>
             </div>
           </div>
         </article>
       </div>
     </main>
-
-    <footer>
-      <p>&copy; AP Design Studio Pte. Ltd. All rights reserved. | Specializing in HDB, Condo, Landed & Commercial Interior Design.</p>
-    </footer>
   </div>
 
-  <a href="https://wa.me/6597869046?text=Hi%20Irene,%20I%20would%20like%20to%20enquire%20about%20your%20interior%20design%20services." target="_blank" class="whatsapp-float" aria-label="Contact via WhatsApp">
-    <svg class="whatsapp-icon" viewBox="0 0 24 24">
-      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.572-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+  <section class="studio" id="studio">
+    <div class="shell studio-inner">
+      <div class="studio-portrait">
+        <img src="https://raw.githubusercontent.com/brandonong/design-portolio/main/ireneKiew.jpeg" alt="Irene Kiew, lead interior designer and founder">
+      </div>
+      <div>
+        <div class="studio-name">Irene Kiew</div>
+        <div class="studio-role">Lead Designer &amp; Founder</div>
+        <div class="studio-body">
+          <p>At AP Design Studio, good interior design starts with the plan. Every square foot should earn its place, balancing how a family moves through the home with how the space is meant to feel.</p>
+          <p>Irene works with homeowners from first space-planning sketch to final handover, across Singapore residential and commercial projects — tailored layouts, quality workmanship and close site supervision throughout.</p>
+        </div>
+        <div class="studio-highlights">
+          <div class="highlight-item">
+            <strong>Space planning</strong>
+            Layouts and custom carpentry
+          </div>
+          <div class="highlight-item">
+            <strong>End to end</strong>
+            Design, sourcing and site supervision
+          </div>
+          <div class="highlight-item">
+            <strong>Every property type</strong>
+            HDB, condo, landed and commercial
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-statement">Planned carefully, built properly.</p>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p><a href="https://wa.me/6597869046" target="_blank" rel="noopener">WhatsApp +65 9786 9046</a></p>
+          <p>Mon–Sat, 9am–7pm</p>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <p>HDB &amp; BTO renovation</p>
+          <p>Condominium interiors</p>
+          <p>Landed &amp; commercial fit-out</p>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© AP Design Studio Pte. Ltd.</span>
+        <span>Interior design &amp; renovation, Singapore</span>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/6597869046?text=Hi%20Irene,%20I%20would%20like%20to%20enquire%20about%20your%20interior%20design%20services." target="_blank" rel="noopener" class="whatsapp-float" aria-label="Contact AP Design Studio on WhatsApp">
+    <svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.572-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
     </svg>
-    <span>WhatsApp Us</span>
+    <span>WhatsApp</span>
   </a>
 
   <div class="modal" id="gallery-modal">
     <div class="modal-header">
-      <div class="modal-title" id="modal-title">Project Gallery</div>
-      <span class="modal-close" id="modal-close">&times;</span>
+      <div class="modal-title" id="modal-title">Project gallery</div>
+      <span class="modal-close" id="modal-close" role="button" tabindex="0" aria-label="Close gallery">&times;</span>
     </div>
 
     <div class="thumb-grid-container" id="thumb-grid"></div>
 
     <div class="fullscreen-viewer" id="fullscreen-viewer">
-      <button class="back-to-thumbs-btn" id="back-to-thumbs">← Back to Thumbnails</button>
-      <button class="modal-nav modal-prev" id="modal-prev">&#10094;</button>
-      <img class="modal-content-img" id="modal-img" src="" alt="Full Project Photo">
-      <button class="modal-nav modal-next" id="modal-next">&#10095;</button>
+      <button class="back-to-thumbs-btn" id="back-to-thumbs">Back to thumbnails</button>
+      <button class="modal-nav modal-prev" id="modal-prev" aria-label="Previous photo">&#10094;</button>
+      <img class="modal-content-img" id="modal-img" src="" alt="Project photo">
+      <button class="modal-nav modal-next" id="modal-next" aria-label="Next photo">&#10095;</button>
       <div class="modal-caption" id="modal-caption"></div>
     </div>
   </div>
@@ -1141,7 +1297,7 @@
           }));
         }
 
-        if (countBadge) countBadge.textContent = `📷 ${config.gallery.length} Photos`;
+        if (countBadge) countBadge.textContent = `${config.gallery.length} photos`;
 
         if (coverImg && config.gallery.length > 0) {
           if (config.coverFile) {
@@ -1165,7 +1321,7 @@
       const project = PROJECTS[projectKey];
       if (!project || project.gallery.length === 0) return;
 
-      modalTitle.textContent = `${project.title} (${project.gallery.length} Photos)`;
+      modalTitle.textContent = `${project.title} — ${project.gallery.length} photos`;
       thumbGrid.innerHTML = '';
 
       project.gallery.forEach((imgObj, index) => {
@@ -1191,7 +1347,7 @@
       const activeGallery = project.gallery;
 
       modalImg.src = activeGallery[currentIndex].src;
-      modalCaption.textContent = `${project.title} — Photo ${currentIndex + 1} of ${activeGallery.length}`;
+      modalCaption.textContent = `${currentIndex + 1} / ${activeGallery.length}`;
 
       thumbGrid.style.display = 'none';
       fullscreenViewer.classList.add('active');
@@ -1347,6 +1503,33 @@
     }
 
     initCalculator();
+
+    // Keyboard support: Enter opens a project, Esc closes, arrows navigate.
+    document.querySelectorAll('.project-card[tabindex]').forEach(card => {
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+
+    document.addEventListener('keydown', e => {
+      if (!modal.classList.contains('active')) return;
+      if (e.key === 'Escape') {
+        modal.classList.remove('active');
+      } else if (fullscreenViewer.classList.contains('active')) {
+        if (e.key === 'ArrowLeft') prevBtn.click();
+        if (e.key === 'ArrowRight') nextBtn.click();
+      }
+    });
+
+    closeBtn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        modal.classList.remove('active');
+      }
+    });
   </script>
 </body>
 </html>
